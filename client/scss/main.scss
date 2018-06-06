@@ -1,6 +1,5 @@
 $ftc-table-is-silent:false;
-
-@import "../../node_modules/@ftchinese/ftc-table/main.scss";
+@import "@ftchinese/ftc-table/main.scss";
 
 $defaultPink: #FFF1E0;
 $borderColor: #cec6b9;
@@ -87,10 +86,7 @@ a {
 div {
   line-height: $goldenRatio;
 }
-.page-container {
-  max-width: 999px;
-  margin: 0 auto;
-}
+
 .page-title {
   font-size:20px;
   font-weight:bold;
@@ -117,4 +113,8 @@ img {
 
 .abcRioButton {
   float:right;
+}
+
+.ftc-table .ftc-table__caption--top {
+  margin-bottom:0px;//TODO:修改ftc-table
 }
