@@ -7,7 +7,9 @@ const bodyParser = require('koa-bodyparser');
 const webpack = require('webpack');
 const config = require('./webpack.config.dev');
 const webpackMiddleware = require('koa-webpack');
-const render = require('./lib/render.js')
+//const render = require('./lib/render.js')
+const nunjucks = require('nunjucks');
+
 const app = new Koa();
 
 const compiler = webpack(config);
@@ -21,7 +23,30 @@ const webpackDevOptions = {
   }
 };
 
-
+var env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
+  new nunjucks.FileSystemLoader(
+    [
+      path.resolve(__dirname, 'views'),
+      path.resolve(__dirname, 'views/pages')
+    ],
+    {
+      watch:false,
+      noCache: true
+    }
+  ),
+  {autoescape: false}
+);
+function render(template, context) {
+  return new Promise(function(resolve, reject) {
+    env.render(template, context, function(err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+}
 
 app.use(logger());
 app.use(bodyParser());
@@ -34,7 +59,10 @@ app.use(webpackMiddleware({
 }));
 
 router.get('/', async ctx => {
-  ctx.body = await render('storytable.html', {});
+  const htmlResult = await render('storytable.html', {
+    nodeEnv:'dev'
+  });
+  ctx.body = htmlResult;
 });
 
 app.use(router.routes());

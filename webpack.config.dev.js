@@ -8,7 +8,7 @@ module.exports = {
      './client/js/storyTable.js'
   ],
   output: {
-    path: path.join(__dirname, '.tmp','scripts'),
+    path: path.join(__dirname, '.tmp'),
     filename:'storyTable.js',
     publicPath:'/static/'
   },

@@ -27,7 +27,9 @@
     {% block content %}
     {% endblock%}
 
+    {% if nodeEnv == 'dev'%}
     <script src="/static/storyTable.js"></script>
+    {% endif %}
     <!-- Load the JavaScript API client and Sign-in library. -->
     <script>
     console.log(clickFunc);

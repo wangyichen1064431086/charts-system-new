@@ -8,10 +8,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "clean": "rimraf build",
+    "start": "cross-env NODE_ENV=development node server.js",
+    "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build": "npm run clean && npm run build:webpack"
+    "build:node":"cross-env NODE_ENV=development node build.js",
+    "build:clean":"rimraf dist/views",
+    "build:publish":"copy dist/*.html ../dev_www/frontend/tpl/marketing/charts-new",
+    "build": "npm run clean && npm run build:webpack && npm run build:node && npm run build:clean && npm run build:publish"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,7 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.1.6",
     "css-loader": "^0.28.11",
+    "fs-jetpack": "^1.3.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "koa": "^2.5.1",
@@ -39,6 +43,11 @@
     "koa-views": "^6.1.4",
     "koa-webpack": "^3.0.2",
     "nunjucks": "^3.1.3",
+    "nunjucks-html-loader": "^1.1.0",
+    "nunjucks-isomorphic-loader": "^2.0.2",
+    "nunjucks-loader": "^3.0.0",
+    "nunjucks-to-html-loader": "^1.0.0",
+    "nunjucks-webpack-plugin": "^4.0.1",
     "sass-loader": "^7.0.3",
     "scss-loader": "0.0.1",
     "style-loader": "^0.21.0",
