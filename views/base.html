@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Charts</title>
+    <title>Chats System New</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon-precomposed" href="http://static.ftchinese.com/img/ipad_icon.png" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <meta name="google-signin-client_id" content="911260228291-d2b7cjs7c0ajobjd6l89133tv4bmrcjb.apps.googleusercontent.com">
+    <!--my id: 166811704494-d8tthgqdg7fs56ou745c8br1cp2a4gqi.apps.googleusercontent.com-->
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -27,14 +28,13 @@
     {% block content %}
     {% endblock%}
 
+  
+    <!-- Load the JavaScript API client and Sign-in library. -->
+
+    <script src="https://apis.google.com/js/client:platform.js"></script>
     {% if nodeEnv == 'dev'%}
     <script src="/static/storyTable.js"></script>
     {% endif %}
-    <!-- Load the JavaScript API client and Sign-in library. -->
-    <script>
-    console.log(clickFunc);
-    </script>
-    <script src="https://apis.google.com/js/client:platform.js"></script>
 
   </body>
 </html>

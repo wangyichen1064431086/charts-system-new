@@ -13,7 +13,7 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:node":"cross-env NODE_ENV=development node build.js",
     "build:clean":"rimraf dist/views",
-    "build:publish":"copy dist/*.html ../dev_www/frontend/tpl/marketing/charts-new",
+    "build:publish":"cpx  \"dist/**/*\" \"../dev_cms/chartist/charts-system-new\" ",
     "build": "npm run clean && npm run build:webpack && npm run build:node && npm run build:clean && npm run build:publish"
   },
   "repository": {

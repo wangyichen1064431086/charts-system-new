@@ -23,7 +23,7 @@ const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
 module.exports = {
   mode: 'production',
   entry: {
-    storyTable: './client/js/storyTable.js'
+    storyTable3: './client/js/storyTable.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
