@@ -58,9 +58,26 @@ app.use(webpackMiddleware({
   hot: compiler
 }));
 
-router.get('/', async ctx => {
-  const htmlResult = await render('storytable.html', {
-    nodeEnv:'dev'
+router.get('/iphoneapp', async ctx => {
+  const htmlResult = await render('storytable-iphoneapp.html', {
+    nodeEnv:'dev',
+    jsFile:'storyTableiPhone'
+  });
+  ctx.body = htmlResult;
+});
+
+router.get('/androidapp', async ctx => {
+  const htmlResult = await render('storytable-androidapp.html', {
+    nodeEnv:'dev',
+    jsFile:'storyTableAndroid'
+  });
+  ctx.body = htmlResult;
+});
+
+router.get('/web', async ctx => {
+  const htmlResult = await render('storytable-web.html', {
+    nodeEnv:'dev',
+    jsFile:'storyTableWeb'
   });
   ctx.body = htmlResult;
 });

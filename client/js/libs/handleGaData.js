@@ -12,12 +12,15 @@ function keysArr (gaReport) {
  */
 function extractObjData(gaResponseReports, propsArr, keys, orderBy) {
   const resultData = [];
+  console.log(gaResponseReports);
   keys.forEach(function(onekey) { //处理每个key,一个key对应一个最后数组数组的一项obj
     const oneObj = {};
     oneObj[propsArr[0]] = onekey; //该obj的第一个属性键为propsArr[0],值为key本身的值
     for (let [index, elem] of gaResponseReports.entries()) {//该obj剩下的属性值分别从这几个reports中获取
-      const oneReportDataArray = elem.data.rows;
+      const oneReportDataArray = elem.data.rows ||[];
       const thisField = propsArr[index+1];
+      //console.log(oneReportDataArray);
+      
       for(const datum of oneReportDataArray ) {
         if (datum.dimensions[0] == onekey) {
           oneObj[thisField] = Number(datum.metrics[0].values[0]);

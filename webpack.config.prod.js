@@ -23,7 +23,9 @@ const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
 module.exports = {
   mode: 'production',
   entry: {
-    storyTable3: './client/js/storyTable.js'
+    storyTableiPhone: './client/js/storyTableiPhone.js',
+    storyTableAndroid: './client/js/storyTableAndroid.js',
+    storyTableWeb: './client/js/storyTableWeb.js',
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -88,12 +90,21 @@ module.exports = {
     ]
   },
   plugins: [
- 
     new HtmlWebpackPlugin({
-      filename:'views/pages/storytable.html',
-      template:'views/pages/storytable.html'
+      filename:'views/pages/storytable-iphoneapp.html',
+      template:'views/pages/iphoneapp.html'
     }),
   
+    new HtmlWebpackPlugin({
+      filename:'views/pages/storytable-androidapp.html',
+      template:'views/pages/androidapp.html'
+    }),
+    
+    new HtmlWebpackPlugin({
+      filename:'views/pages/storytable-web.html',
+      template:'views/pages/web.html'
+    }),
+
     new HtmlWebpackPlugin({
       filename:'views/base.html',
       template: 'views/base.html'
