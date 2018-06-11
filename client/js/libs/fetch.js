@@ -13,10 +13,15 @@ function fetchOneStory(storyId) {
     mode: 'cors'
   }).then(res => res.json());
 }
-async function fetchMoreInfoOfStorys(storyIdArr) {
+async function fetchMoreInfoOfStorys(storyIdArr,cbFunc) {
  return await Promise.all(
     storyIdArr.map(oneId => fetchOneStory(oneId))
-  ).then(resArr => resArr);
+  ).then(resArr => {
+    if(cbFunc) {
+      return resArr.map(item => cbFunc(item))
+    }
+    return resArr;
+  });
 }
 
 export {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys};
