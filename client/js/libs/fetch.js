@@ -1,3 +1,4 @@
+import {randomNum} from './consts.js';
 
 async function fetchMoreInfoOfOneStory(storyId) {
   //const url = `http://10.99.10.12/index.php/jsapi/get_story_more_info/${storyId}`;
@@ -8,7 +9,6 @@ async function fetchMoreInfoOfOneStory(storyId) {
 }
 
 function fetchOneStory(storyId) {
-  const randomNum =  Math.floor(Math.random() * 100000000);
   const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
 
   return fetch(url, {
@@ -28,7 +28,28 @@ async function fetchMoreInfoOfStorys(storyIdArr,cbFunc) {
   });
 }
 
-export {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys};
+function fetchOneStoryAsync(storyId, cbFunc) {
+  const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
+  fetch(url, {
+    mode: 'cors'
+  }).then(res => 
+    res.json() //也返回的是一个promise
+  ) .then( result => {
+    console.log(result);
+    cbFunc(result);
+  });
+}
+
+function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
+  Promise.all(
+    storyIdArr.forEach(oneId => {
+      fetchOneStoryAsync(oneId, cbFunc);
+    })
+  ).catch(errArr => {
+    console.log(errArr);
+  });
+}
+export {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys,fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
 
 //调用方式:const testFetch = await fetchMoreInfoOfOneStory('001077916');
 /** test

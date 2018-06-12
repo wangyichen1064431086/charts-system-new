@@ -3,7 +3,7 @@ import {queryDifferentReports} from './libs/queryFuncs.js';
 import {requestDataForiPhoneAppStory} from './libs/requestData.js';
 import {renderDataToTable} from './libs/renderData.js';
 import { keysArr, extractObjData, addPropsToData, divide, revenue } from './libs/handleGaData.js'
-import {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys} from './libs/fetch.js';
+import {fetchMoreInfoOfStorysAsync} from './libs/fetch.js';
 import {formatDate} from './libs/handleDate';
 import Table from '@ftchinese/ftc-table';
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
@@ -19,13 +19,9 @@ async function processDataFunc(responseDataArr) {
   console.log(labelKeys);
   const objData = extractObjData(responseData.reports, ["story","disp","tap","buySucS","buySucP"],labelKeys,'buySucS');
   
-
-  const storyIdArr = labelKeys.map(item => item.replace(/^premium\/([0-9]{9})/, '$1'));
   /*
-  console.log('storyIdArr:');
-  console.log(storyIdArr);
-  console.log(objData);
-  */
+  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));
+
   const cbFunc = function(item) {
     return {
       id:item.id || '',
@@ -34,24 +30,20 @@ async function processDataFunc(responseDataArr) {
       pubdate: item.pubdate ? formatDate((parseInt(item.pubdate,10) + 28800) * 1000) : ''
     }
   }
-  /*
-  const testFetchArr0 = await fetchMoreInfoOfStorys(['001077916','001077952']);
-  console.log(`testFetchArr0:`);
-  console.log(testFetchArr0);
-  */
-  const moreInfoOfStories = await fetchMoreInfoOfStorys(storyIdArr, cbFunc);
+  
+ const moreInfoOfStories = await fetchMoreInfoOfStorys(storyIdArr, cbFunc);
+  //{id: "001075908", title: "美国债券牛市终结是好事吗？", pubdate: "20180115"}
   console.log(`moreInfoOfStories:`);
   console.log(moreInfoOfStories);
-
+*/
   const assignedObjData = objData.map(item => {
-    item.id = item.story.replace(/^premium\/([0-9]{9})/, '$1');
-    delete item.story;
-    if (moreInfoOfStories.length > 0) {
-      const moreInfoOfOneStory = moreInfoOfStories.filter(story => story.id === item.id);
-      const resultOfmoreInfoOfOneStory = moreInfoOfOneStory.length > 0 ? moreInfoOfOneStory[0] : {};
-      return Object.assign(item, resultOfmoreInfoOfOneStory);
-    } 
-    return item;
+    item.id = item.story.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1');
+   
+    return Object.assign(item, {
+      title: 'waiting...',
+      pubdate: 'waiting...'
+    });
+
   });
 
   console.log('assignedObjData:');
@@ -72,6 +64,24 @@ async function processDataFunc(responseDataArr) {
   renderDataToTable('storyOfIphoneApp', newObjData, ["id","title","pubdate","disp","tap","buySucS","buySucP","Conversion",'Revenue'], ["disp","tap","pop","buySucS","buySucP", "Revenue"]);
   new Table('#storyOfIphoneApp');
 
+
+  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));
+  const tableElem = document.getElementById('storyOfIphoneApp');
+  const cbFunc = function(moreInfoData) {
+    const id = moreInfoData.id||'';
+    const title = moreInfoData.cheadline || '标题缺失';
+    const pubdate = moreInfoData.pubdate ? formatDate((parseInt(moreInfoData.pubdate,10) + 28800) * 1000) : ''
+    
+    if (id) {
+      const targetTr = tableElem.querySelector(`[data-storyid="${id}"]`);
+      const targetTitleTd = targetTr.querySelector('td:nth-child(2)');
+      const targetPubdateTd = targetTr.querySelector('td:nth-child(3)');
+      targetTitleTd.innerHTML = title;
+      targetPubdateTd.innerHTML = pubdate;
+    }
+  }
+
+  fetchMoreInfoOfStorysAsync(storyIdArr, cbFunc);
   
 }
 

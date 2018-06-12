@@ -44,7 +44,7 @@ const requestDataForiPhoneAppStory = [//以文章id划分的数据:premium线
                       'dimensionName': 'ga:eventLabel',
                       'operator': 'REGEXP',
                       'expressions': [
-                          '^premium/[0-9]{9}$'
+                          '^ExclusiveContent/premium/[0-9]{9}$'
                       ],
                       'caseSensitive': true
                       }
@@ -94,7 +94,7 @@ const requestDataForiPhoneAppStory = [//以文章id划分的数据:premium线
                       'dimensionName': 'ga:eventLabel',
                       'operator': 'REGEXP',
                       'expressions': [
-                          '^premium/[0-9]{9}$'
+                          '^ExclusiveContent/premium/[0-9]{9}$'
                       ],
                       'caseSensitive': true
                   }
@@ -144,7 +144,7 @@ const requestDataForiPhoneAppStory = [//以文章id划分的数据:premium线
             'dimensionName': 'ga:eventLabel',
             'operator': 'REGEXP',
             'expressions': [
-              '^premium/[0-9]{9}$'
+              '^ExclusiveContent/premium/[0-9]{9}$'
             ],
             'caseSensitive': true
           }
@@ -194,7 +194,7 @@ const requestDataForiPhoneAppStory = [//以文章id划分的数据:premium线
             'dimensionName': 'ga:eventLabel',
             'operator': 'REGEXP',
             'expressions': [
-              '^premium/[0-9]{9}$'
+              '^ExclusiveContent/premium/[0-9]{9}$'
             ],
             'caseSensitive': true
           }
