@@ -1,12 +1,16 @@
 const path = require('path');
 const fs = require('fs-jetpack');
 const nunjucks = require('nunjucks');
+const headerWebData = require('./data/webData');
+const headerIphoneData = require('./data/iPhoneData');
+const headerAndroidData = require('./data/androidData');
 
 var env = new nunjucks.Environment( 
   new nunjucks.FileSystemLoader(
     [
       path.resolve(__dirname, 'dist/views'),
-      path.resolve(__dirname, 'dist/views/pages')
+      path.resolve(__dirname, 'dist/views/pages'),
+      path.resolve(__dirname, 'views/partials')
     ],
     {
       watch:false,
@@ -27,11 +31,30 @@ function render(template, context) {
   });
 }
 
-async function renderNunjucks() {
-  const htmlResult = await render('storytable.html', {
-    nodeEnv: 'prod'
-  });
-  fs.writeAsync(path.resolve(__dirname,'dist/storytable.html'),htmlResult)
+function renderNunjucks() {
+  Promise.all(
+    [
+      render('iphoneapp.html', {
+        nodeEnv:'prod',
+        jsFile:'storyTableiPhone',
+        header:headerIphoneData
+      }),
+      render('androidapp.html', {
+        nodeEnv:'prod',
+        jsFile:'storyTableAndroid',
+        header:headerAndroidData
+      }),
+      render('web.html', {
+        nodeEnv:'prod',
+        jsFile:'storyTableWeb',
+        header:headerWebData
+      })
+    ]
+  ).then(([res1, res2, res3]) => {
+    fs.writeAsync(path.resolve(__dirname,'dist/iphoneapp.html'),res1);
+    fs.writeAsync(path.resolve(__dirname,'dist/androidapp.html'),res2);
+    fs.writeAsync(path.resolve(__dirname,'dist/web.html'),res3);
+  })
 };
 
 renderNunjucks();

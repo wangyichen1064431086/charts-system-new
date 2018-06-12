@@ -25,6 +25,8 @@ function renderDataToTable(tableId, data, fields,statisticFields) {
     for(const field of fields) {
       if(typeof item[field] === 'number') {
         tds += `<td class="ftc-table__cell--numeric">${item[field]}</td>`;
+      } else if(item[field] === undefined) {
+        tds += `<td>Ajax Failed</td>`;
       } else {
         tds += `<td>${item[field]}</td>`;
       }

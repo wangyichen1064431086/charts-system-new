@@ -6,10 +6,11 @@ import { keysArr, extractObjData, addPropsToData, divide, revenue } from './libs
 import {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys} from './libs/fetch.js';
 import {formatDate} from './libs/handleDate';
 import Table from '@ftchinese/ftc-table';
+import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
 import '../scss/main.scss';
 
-
+FullHeader.init();
 const requestDataArr = [requestDataForiPhoneAppStory];
 
 async function processDataFunc(responseDataArr) {
@@ -45,9 +46,12 @@ async function processDataFunc(responseDataArr) {
   const assignedObjData = objData.map(item => {
     item.id = item.story.replace(/^premium\/([0-9]{9})/, '$1');
     delete item.story;
-    const moreInfoOfOneStory = moreInfoOfStories.filter(story => story.id === item.id);
-    const resultOfmoreInfoOfOneStory = moreInfoOfOneStory.length > 0 ? moreInfoOfOneStory[0] : {};
-    return Object.assign(item, resultOfmoreInfoOfOneStory);
+    if (moreInfoOfStories.length > 0) {
+      const moreInfoOfOneStory = moreInfoOfStories.filter(story => story.id === item.id);
+      const resultOfmoreInfoOfOneStory = moreInfoOfOneStory.length > 0 ? moreInfoOfOneStory[0] : {};
+      return Object.assign(item, resultOfmoreInfoOfOneStory);
+    } 
+    return item;
   });
 
   console.log('assignedObjData:');

@@ -17,13 +17,11 @@
   </head>
 
   <body>
-  
+    {% include "header.html" %}
     <!-- The Sign-in button. This will run `queryReports()` on success. -->
-    <div class="g-signin2" data-onsuccess="clickFunc"></div>
-    
-
-    <h1 class="page-title">Engagement</h1>
-
+    <div class="signin-btn">
+     <div class="g-signin2" data-onsuccess="clickFunc"></div>
+    </div>
 
     {% block content %}
     {% endblock%}
@@ -34,6 +32,8 @@
     <script src="https://apis.google.com/js/client:platform.js"></script>
     {% if nodeEnv == 'dev'%}
     <script src="/static/{{jsFile}}.js"></script>
+    {% else %}
+    <script src="./static/{{jsFile}}.js"></script>
     {% endif %}
 
   </body>

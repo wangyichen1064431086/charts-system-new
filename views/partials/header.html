@@ -1,0 +1,114 @@
+<header class="ftc-header" data-ftc-component="ftc-header" data-ftc-header--no-js>
+    <!-- The top -->
+    <div class="ftc-header__top ">
+      <div class="ftc-header__container">
+        {% if header.nav.indexForSelectedTopChannel == 0 and  header.nav.indexForSelectedSubChannel == -1 %}
+          {% set isHome = "yes" %}
+        {% else %}
+          {% set isHome = "no" %}
+        {% endif %}
+        
+        {% if isHome == "yes" %}
+          {% set titleClass = "ftc-header__top-column ftc-header__top-center ftc-header-hometitle" %}
+        {% else %}
+          {% set titleClass = "ftc-header__top-column ftc-header__top-center ftc-header-tagtitle" %}
+        {% endif %}
+
+        <div class="{{titleClass}}" data-ftc-component="ftc-header-title">
+            {{header.myTitle if isHome == "no" else " "}}
+        </div>
+  
+      
+        <div class="ftc-header__top-column ftc-header__top-left">
+          {% if isHome == "yes" %}
+            <!--  "partials/lang.html" -->
+            <!-- The lang -->
+            <div class="ftc-header__lang" data-ftc-component="ftc-header-lang">
+              <ul class="ftc-header__lang-list ftc-header__lang-listdefault">
+                {% for onelang in header.lang.list %}
+                <li class="ftc-header__lang-item">
+                  <a href={{onelang.url}}>
+                    {{onelang.name}}
+                  </a>
+                </li>
+                {% endfor%}
+              </ul>
+            </div>
+          {% else %}
+            <div class="ftc-header__brand">
+            </div>
+          {% endif %}
+          
+          <div class="ftc-header__hamburg" data-ftc-component="ftc-header-hamburg">
+          </div>
+        </div>
+        
+        <div class="ftc-header__top-column ftc-header__top-right">
+          <!-- "partials/sign.html"-->
+        </div>
+        
+      </div>
+    </div>
+  
+    {% if header.nav %}
+     <!--  "partials/navStatic.html" -->
+     <nav class="ftc-header__nav" data-ftc-component="ftc-channelnav" role="navigation" aria-label="Main navigation">
+        <ul class="ftc-header__nav-list ftc-header__nav-toplist" data-ftc--sticky>
+          {% set subChannels = {} %} 
+         
+          {% for topChannel in header.nav.topChannels %}
+            {% if header.nav.indexForSelectedTopChannel==topChannel.index %}
+              {% set topChannelItemClass = "ftc-header__nav-item ftc-header__nav-topitem ftc-header__nav-topitem-selected"%}
+            {% else %}
+              {% set topChannelItemClass = "ftc-header__nav-item ftc-header__nav-topitem" %}
+            {% endif %}
+           <li class="{{topChannelItemClass}}" data-index={{topChannel.index}}>
+              <a data-ftc--target-top href={{topChannel.url}} >{{topChannel.name}}</a>
+              <ul class="ftc-header__nav-pushdownlist">
+                {% for pushdownChannel in topChannel.subChannels %}
+                  <li class="ftc-header__nav-pushdownitem" data-index={{pushdownChannel.index}}><a data-ftc--target-pushdown href={{pushdownChannel.url}}>{{pushdownChannel.name}}</a></li>
+                {% endfor %}
+              </ul>
+          </li>
+            {% if header.nav.indexForSelectedTopChannel==topChannel.index %}
+              {% set subChannels = topChannel.subChannels %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <ul class="ftc-header__nav-list ftc-header__nav-sublist">
+          {% for subChannel in subChannels %}
+            {% if header.nav.indexForSelectedSubChannel==subChannel.index %}
+              {% set subChannelItemClass = "ftc-header__nav-item ftc-header__nav-subitem ftc-header__nav-subitem-selected"%}
+            {% else %}
+              {% set subChannelItemClass = "ftc-header__nav-item ftc-header__nav-subitem" %}
+            {% endif %}
+
+            <li class="{{subChannelItemClass}}" data-index={{subChannel.index}}>
+                <a href={{subChannel.url}}>{{subChannel.name}}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  
+    {% if header.search %}
+      <!-- "partials/search.html" -->
+      <div class="ftc-header__search ftc-header__search-default  ftc-header__row" data-ftc-component="ftc-header-search" data-ftc--sticky >
+          <div class="ftc-header__container">
+          
+            <form class="ftc-header__search-formregion" action={{header.search.actionUrl}} role="search">
+              <button class="ftc-header__search-searchbtn"></button>
+              <div class="ftc-header__search-inputarea">
+                <input class="ftc-header__search-input" type="search" placeholder={{header.search.placeholderText}} >
+              </div>
+              </form>
+            </form>
+            <div class="ftc-header__search-switch">
+            </div>
+          </div>
+        </div>
+    {% endif %}
+  
+    <!--"partials/loginOverlay.html" -->
+  
+  </header>

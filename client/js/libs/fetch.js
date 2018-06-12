@@ -8,7 +8,9 @@ async function fetchMoreInfoOfOneStory(storyId) {
 }
 
 function fetchOneStory(storyId) {
-  const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}`;
+  const randomNum =  Math.floor(Math.random() * 100000000);
+  const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
+
   return fetch(url, {
     mode: 'cors'
   }).then(res => res.json());
@@ -21,6 +23,8 @@ async function fetchMoreInfoOfStorys(storyIdArr,cbFunc) {
       return resArr.map(item => cbFunc(item))
     }
     return resArr;
+  }).catch(errArr => {
+    return []
   });
 }
 

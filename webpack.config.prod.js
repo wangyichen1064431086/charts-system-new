@@ -91,41 +91,32 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename:'views/pages/storytable-iphoneapp.html',
-      template:'views/pages/iphoneapp.html'
+      filename:'views/pages/iphoneapp.html',
+      template:'views/pages/storytable-iphoneapp.html',
+      chunks:[]
     }),
   
     new HtmlWebpackPlugin({
-      filename:'views/pages/storytable-androidapp.html',
-      template:'views/pages/androidapp.html'
+      filename:'views/pages/androidapp.html',
+      template:'views/pages/storytable-androidapp.html',
+      chunks:[]
     }),
-    
+
     new HtmlWebpackPlugin({
-      filename:'views/pages/storytable-web.html',
-      template:'views/pages/web.html'
+      filename:'views/pages/web.html',
+      template:'views/pages/storytable-web.html',
+      chunks:[]
+    }),
+    new HtmlWebpackPlugin({
+      filename:'views/partials/header.html',
+      template: 'views/partials/header.html',
+      chunks:[]
     }),
 
     new HtmlWebpackPlugin({
       filename:'views/base.html',
-      template: 'views/base.html'
-    }),
- 
-        /*
-   new NunjucksWebpackPlugin({
-     templates:[
-       {
-         from: path.join(__dirname, 'views/pages/storytable.nunj'),
-         to:'storytable.html'
-       }
-     ]
-     //configure:env
-   })
-   
-
-      new HtmlWebpackPlugin({
-        filename:'storytable.html',
-        template:'views/pages/storytable.njk'
-      })
-       */
+      template: 'views/base.html',
+      chunks:[]
+    })
   ]
 }

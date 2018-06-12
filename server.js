@@ -9,7 +9,11 @@ const config = require('./webpack.config.dev');
 const webpackMiddleware = require('koa-webpack');
 //const render = require('./lib/render.js')
 const nunjucks = require('nunjucks');
+const headerWebData = require('./data/webData');
+const headerIphoneData = require('./data/iPhoneData');
+const headerAndroidData = require('./data/androidData');
 
+console.log(headerWebData);
 const app = new Koa();
 
 const compiler = webpack(config);
@@ -27,7 +31,8 @@ var env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
   new nunjucks.FileSystemLoader(
     [
       path.resolve(__dirname, 'views'),
-      path.resolve(__dirname, 'views/pages')
+      path.resolve(__dirname, 'views/pages'),
+      path.resolve(__dirname, 'views/partials')
     ],
     {
       watch:false,
@@ -61,7 +66,8 @@ app.use(webpackMiddleware({
 router.get('/iphoneapp', async ctx => {
   const htmlResult = await render('storytable-iphoneapp.html', {
     nodeEnv:'dev',
-    jsFile:'storyTableiPhone'
+    jsFile:'storyTableiPhone',
+    header:headerIphoneData
   });
   ctx.body = htmlResult;
 });
@@ -69,7 +75,8 @@ router.get('/iphoneapp', async ctx => {
 router.get('/androidapp', async ctx => {
   const htmlResult = await render('storytable-androidapp.html', {
     nodeEnv:'dev',
-    jsFile:'storyTableAndroid'
+    jsFile:'storyTableAndroid',
+    header:headerAndroidData
   });
   ctx.body = htmlResult;
 });
@@ -77,7 +84,8 @@ router.get('/androidapp', async ctx => {
 router.get('/web', async ctx => {
   const htmlResult = await render('storytable-web.html', {
     nodeEnv:'dev',
-    jsFile:'storyTableWeb'
+    jsFile:'storyTableWeb',
+    header:headerWebData
   });
   ctx.body = htmlResult;
 });
