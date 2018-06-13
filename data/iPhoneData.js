@@ -1,10 +1,10 @@
 module.exports = {
-  "myTitle":"付费文章数据信息iPhoneApp",
+  "myTitle":"付费文章Engagement: iPhoneApp",
 
   
 	"nav": {
     "indexForSelectedTopChannel": 0,
-    "indexForSelectedSubChannel": 0,
+    "indexForSelectedSubChannel": 1,
     "topChannels": [
       {
         "name": "付费文章",
@@ -12,19 +12,24 @@ module.exports = {
         "index":0,
         "subChannels":[
           {
+            "name":"All",
+            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/all.html",
+            "index":0
+          },
+          {
             "name":"iPhoneApp",
             "url":"#",
-            "index":0
+            "index":1
           },
           {
             "name":"AndroidApp",
             "url":"https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
-            "index":1
+            "index":2
           },
           {
             "name":"Web",
             "url":"https://backyard.ftchinese.com/chartist/charts-system-new/web.html",
-            "index":2
+            "index":3
           }
         ]  
       },

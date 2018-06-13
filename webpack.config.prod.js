@@ -26,6 +26,7 @@ module.exports = {
     storyTableiPhone: './client/js/storyTableiPhone.js',
     storyTableAndroid: './client/js/storyTableAndroid.js',
     storyTableWeb: './client/js/storyTableWeb.js',
+    storyTableAll: './client/js/storyTableAll.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -107,6 +108,13 @@ module.exports = {
       template:'views/pages/storytable-web.html',
       chunks:[]
     }),
+
+    new HtmlWebpackPlugin({
+      filename:'views/pages/all.html',
+      template:'views/pages/storytable-all.html',
+      chunks:[]
+    }),
+
     new HtmlWebpackPlugin({
       filename:'views/partials/header.html',
       template: 'views/partials/header.html',

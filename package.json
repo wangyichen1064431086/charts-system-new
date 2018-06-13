@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@ftchinese/ftc-header": "^2.1.0",
-    "@ftchinese/ftc-table": "^1.5.0",
+    "@ftchinese/ftc-table": "^1.5.2",
     "sass-mq": "^5.0.0"
   }
 }

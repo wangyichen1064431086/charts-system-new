@@ -17,10 +17,9 @@ FullHeader.init();
 
 const requestDataArr = [requestDataForWebStory];
 
-async function processDataFunc(responseDataArr) {
+function processDataFunc(responseDataArr) {
   const responseData = responseDataArr[0];
   const labelKeys = keysArr(responseData.reports[0]);
-  console.log(labelKeys);
   const objData = extractObjData(responseData.reports, ["story","disp","tap","buySucS","buySucP"],labelKeys,'buySucS');
   
 

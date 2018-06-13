@@ -1,9 +1,10 @@
 module.exports = {
-  "myTitle":"付费文章Engagement: AndroidApp",
+  "myTitle":"付费文章Engagement: All Devices",
 
+  
 	"nav": {
     "indexForSelectedTopChannel": 0,
-    "indexForSelectedSubChannel": 2,
+    "indexForSelectedSubChannel": 0,
     "topChannels": [
       {
         "name": "付费文章",
@@ -12,7 +13,7 @@ module.exports = {
         "subChannels":[
           {
             "name":"All",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/all.html",
+            "url":"#",
             "index":0
           },
           {
@@ -22,7 +23,7 @@ module.exports = {
           },
           {
             "name":"AndroidApp",
-            "url":"#",
+            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
             "index":2
           },
           {

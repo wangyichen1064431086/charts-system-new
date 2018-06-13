@@ -13,29 +13,11 @@ import '../scss/main.scss';
 FullHeader.init();
 const requestDataArr = [requestDataForiPhoneAppStory];
 
-async function processDataFunc(responseDataArr) {
+function processDataFunc(responseDataArr) {
   const responseData = responseDataArr[0]
   const labelKeys = keysArr(responseData.reports[0]);
-  console.log(labelKeys);
   const objData = extractObjData(responseData.reports, ["story","disp","tap","buySucS","buySucP"],labelKeys,'buySucS');
-  
-  /*
-  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));
 
-  const cbFunc = function(item) {
-    return {
-      id:item.id || '',
-      title: item.cheadline || '',
-      //pubdateRow: item.pubdate,
-      pubdate: item.pubdate ? formatDate((parseInt(item.pubdate,10) + 28800) * 1000) : ''
-    }
-  }
-  
- const moreInfoOfStories = await fetchMoreInfoOfStorys(storyIdArr, cbFunc);
-  //{id: "001075908", title: "美国债券牛市终结是好事吗？", pubdate: "20180115"}
-  console.log(`moreInfoOfStories:`);
-  console.log(moreInfoOfStories);
-*/
   const assignedObjData = objData.map(item => {
     item.id = item.story.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1');
    
@@ -46,8 +28,6 @@ async function processDataFunc(responseDataArr) {
 
   });
 
-  console.log('assignedObjData:');
-  console.log(assignedObjData);
   const newObjData = addPropsToData(assignedObjData, [{
     operateFunc:divide,
     prop1:"buySucS",

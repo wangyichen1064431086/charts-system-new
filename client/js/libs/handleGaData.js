@@ -9,10 +9,11 @@ function keysArr (gaReport) {
  * @param {Array} propsArr：最终得到obj各属性名称组成的数组，其中第一个为 key的名称，第二个为reports[0]数值项的名称，第三个为reports[1]数值项的名称....
  * @param {Array} keys：主键值数组,最终数据集将按照keys数组的顺序程现。
  * @param {string} orderBy: 按照从多到少排序的字段，是propsArr中除key外的某一个
+ * @return {Array}
  */
 function extractObjData(gaResponseReports, propsArr, keys, orderBy) {
   const resultData = [];
-  console.log(gaResponseReports);
+  //console.log(gaResponseReports);
   keys.forEach(function(onekey) { //处理每个key,一个key对应一个最后数组数组的一项obj
     const oneObj = {};
     oneObj[propsArr[0]] = onekey; //该obj的第一个属性键为propsArr[0],值为key本身的值
@@ -47,6 +48,49 @@ function extractObjData(gaResponseReports, propsArr, keys, orderBy) {
   return resultData;
 }
 
+/**
+ * 
+ * @param {Array} sourceArr 待转换的数组
+ * @param {String} keyProp 待转换数组中每一项中的某一属性，将作为最终Obj的key值
+ */
+function tranformArrayToObj(sourceArr, keyProp) {
+  const resultObj = {};
+  sourceArr.forEach(item => {
+    resultObj[item[keyProp]] = item;
+  });
+  return resultObj;
+}
+
+
+function merge2ObjBySumPropValue(obj1, obj2, sumPropArray) {
+  for (let storyId in obj1) {
+    if(obj2[storyId]) {
+      const storyInfoInObj1 = obj1[storyId];
+      const storyInfoInObj2 = obj2[storyId];
+
+      for (let prop of sumPropArray) {
+        if(storyInfoInObj2[prop] && typeof storyInfoInObj2[prop] === 'number') { //如果storyInfoInObj2有该prop
+          if (storyInfoInObj1[prop] && typeof storyInfoInObj1[prop] === 'number') {//如果storyInfoInObj1有该prop
+            storyInfoInObj1[prop]+=storyInfoInObj2[prop];
+          } else {//如果storyInfoInObj1没有该prop
+            storyInfoInObj1[prop] = storyInfoInObj2[prop];
+          }
+        }
+      }
+      delete obj2[storyId];//for循环完成后obj2就只剩obj1没有的storyId
+    } //如果obj2不含该storyId，那直接就不处理
+  }
+
+  for (let storyId in obj2) {
+    obj1[storyId] = obj2[storyId];
+  }
+  return obj1;
+
+}
+
+function mergeMultiObj(merge2ObjFunc, objArr, sumPropArray) {
+  return objArr.reduce((obj1, obj2) => merge2ObjBySumPropValue(obj1, obj2, sumPropArray));
+}
 /**
  * @description 为已经处理好的数据集添加新属性，新属性由已有属性值计算得到
  * @param {Array:[Obj,Obj,Obj]} data
@@ -87,4 +131,4 @@ function divide(a,b) {
 function revenue(standardNum, premiumNum) {
   return standardNum * 198 + premiumNum * 1998
 }
-export { keysArr, extractObjData, addPropsToData, divide, revenue };
+export { keysArr, extractObjData, tranformArrayToObj, merge2ObjBySumPropValue,mergeMultiObj, addPropsToData, divide, revenue};

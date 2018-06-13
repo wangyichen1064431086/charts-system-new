@@ -30,24 +30,21 @@ async function fetchMoreInfoOfStorys(storyIdArr,cbFunc) {
 
 function fetchOneStoryAsync(storyId, cbFunc) {
   const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
-  fetch(url, {
+  return fetch(url, {
     mode: 'cors'
   }).then(res => 
     res.json() //也返回的是一个promise
   ) .then( result => {
-    console.log(result);
     cbFunc(result);
   });
 }
 
 function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
   Promise.all(
-    storyIdArr.forEach(oneId => {
-      fetchOneStoryAsync(oneId, cbFunc);
+    storyIdArr.map(oneId => { //这里不能用forEach，forEach无返回值，那么Promise.all会报错
+      return fetchOneStoryAsync(oneId, cbFunc);
     })
-  ).catch(errArr => {
-    console.log(errArr);
-  });
+  ).then().catch();
 }
 export {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys,fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
 

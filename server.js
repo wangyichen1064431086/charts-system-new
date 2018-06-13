@@ -12,7 +12,7 @@ const nunjucks = require('nunjucks');
 const headerWebData = require('./data/webData');
 const headerIphoneData = require('./data/iPhoneData');
 const headerAndroidData = require('./data/androidData');
-
+const headerAllData = require('./data/allData');
 console.log(headerWebData);
 const app = new Koa();
 
@@ -86,6 +86,15 @@ router.get('/web', async ctx => {
     nodeEnv:'dev',
     jsFile:'storyTableWeb',
     header:headerWebData
+  });
+  ctx.body = htmlResult;
+});
+
+router.get('/all', async ctx => {
+  const htmlResult = await render('storytable-all.html', {
+    nodeEnv:'dev',
+    jsFile:'storyTableAll',
+    header:headerAllData
   });
   ctx.body = htmlResult;
 });
