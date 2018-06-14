@@ -23,7 +23,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename:'static/[name].js',
+    filename:'static/[name].js',//'static/[name].[hash].js'唯一的hash生成，这样可以避免缓存
     publicPath:'.'
   },
   module: {
@@ -178,7 +178,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename:'iphoneapp.html',
       template:'views/pages/storytable-iphoneapp.html',
-      chunks:['storyTableiPhone']
+      chunks:['storyTableiPhone'],
+      // minify: { //这个是等同于html-minifier的配置，在html-loader中已经设置了，这里就可以不设置了
+      //   removeComments:true,
+      //   minifyCSS:true,
+      //   minifyJS:true
+      // }
     }),
     
     new HtmlWebpackPlugin({
