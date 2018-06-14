@@ -1,3 +1,5 @@
+import '../scss/main.scss';
+
 import {queryDifferentReports} from './libs/queryFuncs.js';
 
 import {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory} from './libs/requestData.js';
@@ -8,7 +10,6 @@ import {formatDate} from './libs/handleDate';
 import Table from '@ftchinese/ftc-table';
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
-import '../scss/main.scss';
 
 
 FullHeader.init();

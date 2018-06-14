@@ -13,7 +13,6 @@
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
-
   </head>
 
   <body>
@@ -30,11 +29,11 @@
     <!-- Load the JavaScript API client and Sign-in library. -->
 
     <script src="https://apis.google.com/js/client:platform.js"></script>
-    {% if nodeEnv == 'dev'%}
+    <!-- {% if nodeEnv == 'dev'%}
     <script src="/static/{{jsFile}}.js"></script>
     {% else %}
     <script src="./static/{{jsFile}}.js"></script>
-    {% endif %}
+    {% endif %} -->
 
   </body>
 </html>

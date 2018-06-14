@@ -1,25 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const sassLoader = 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMapContents=true';
-/*
-const NunjucksWebpackPlugin = require('nunjucks-webpack-plugin');
+//const sassLoader = 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMapContents=true';
+const minify = require('html-minifier');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const nunjucks = require('nunjucks');
-const env = new nunjucks.Environment( //也就是起到了'koa-views'的作用
-  new nunjucks.FileSystemLoader(
-    [
-      path.resolve(__dirname, 'views'),
-      path.resolve(__dirname, 'views/pages')
-    ],
-    {
-      watch:false,
-      noCache: true
-    }
-  ),
-  {autoescape: false}
-);
-*/
+//const dataForStoryTableiPhone = require('./data/storyTableiPhone.js');
+const headerAllData = require('./data/storyTableAll');
+const headerIphoneData = require('./data/storyTableiPhone');
+const headerAndroidData = require('./data/storyTableAndroid');
+const headerWebData = require('./data/storyTableWeb');
+
 module.exports = {
   mode: 'production',
   entry: {
@@ -39,92 +32,189 @@ module.exports = {
         test:/\.scss$/,
         include: [
           path.resolve(__dirname, 'client/scss'),
+          path.resolve(__dirname,'node_modules')
         ],
-        loader: sassLoader
-      },{
-        test: /\.html$/,
+        use: [ 
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ]
+      },
+      {
+        resource:{//https://webpack.docschina.org/configuration/module/#%E6%9D%A1%E4%BB%B6
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/storytable-iphoneapp.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
         use: [
           {
             loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
             options: {
               minimize: true
             }
-          }
-         
-        ]
-      }/*,{
-        test: /\.html$/,
-        loader:'nunjucks-loader'
-      },{
-        test: /\.nunj$/,
-        loader: 'file?context=&name=[path][name].html!nunjucks-html?'+
-          JSON.stringify({
-            'searchPaths':[
-              '/views/pages',
-              '/views'
-            ]
-          })
-      },{
-        test: /\.njk$/,
-        use: [
+          },
           {
-            loader:'nunjucks-isomorphic-loader',
-            query: {
-              root:[path.resolve(__dirname,'views/pages')]
-            }
-          }
-        ]
-      },{
-        test: /\.(html|njk)$/,
-        use:[
-          'html-loader',
-          {
-            loader:'nunjucks-to-html-loader',
+            loader: 'nunjucks-html-loader',
             options: {
-              alias: {
-                templates: path.resolve(__dirname,'views')
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                header: headerIphoneData
               }
             }
           }
         ]
-      }*/
+      },
+      {
+        resource:{//https://webpack.docschina.org/configuration/module/#%E6%9D%A1%E4%BB%B6
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/storytable-androidapp.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
+        use: [
+          {
+            loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'nunjucks-html-loader',
+            options: {
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                header: headerAndroidData
+              }
+            }
+          }
+        ]
+      },
+      {
+        resource:{//https://webpack.docschina.org/configuration/module/#%E6%9D%A1%E4%BB%B6
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/storytable-web.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
+        use: [
+          {
+            loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'nunjucks-html-loader',
+            options: {
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                header: headerWebData
+              }
+            }
+          }
+        ]
+      },
+      {
+        resource:{//https://webpack.docschina.org/configuration/module/#%E6%9D%A1%E4%BB%B6
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/storytable-all.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
+        use: [
+          {
+            loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'nunjucks-html-loader',
+            options: {
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                header: headerAllData
+              }
+            }
+          }
+        ]
+      }
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename:'static/[name].css',
+      //chunkFilename:'static/[name].css'
+    }),
     new HtmlWebpackPlugin({
-      filename:'views/pages/iphoneapp.html',
+      filename:'iphoneapp.html',
       template:'views/pages/storytable-iphoneapp.html',
-      chunks:[]
+      chunks:['storyTableiPhone']
     }),
-  
+    
     new HtmlWebpackPlugin({
-      filename:'views/pages/androidapp.html',
+      filename:'androidapp.html',
       template:'views/pages/storytable-androidapp.html',
-      chunks:[]
+      chunks:['storyTableAndroid']
     }),
 
     new HtmlWebpackPlugin({
-      filename:'views/pages/web.html',
+      filename:'web.html',
       template:'views/pages/storytable-web.html',
-      chunks:[]
+      chunks:['storyTableWeb']
     }),
 
     new HtmlWebpackPlugin({
-      filename:'views/pages/all.html',
+      filename:'all.html',
       template:'views/pages/storytable-all.html',
-      chunks:[]
-    }),
-
-    new HtmlWebpackPlugin({
-      filename:'views/partials/header.html',
-      template: 'views/partials/header.html',
-      chunks:[]
-    }),
-
-    new HtmlWebpackPlugin({
-      filename:'views/base.html',
-      template: 'views/base.html',
-      chunks:[]
+      chunks:['storyTableAll']
     })
-  ]
+
+  ],
+
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        cache: true,
+        parallel: true
+      }),
+      new OptimizeCssAssetsPlugin({
+        cssProcessorOptions: { 
+          discardComments: { 
+            removeAll: true 
+          } 
+        },
+
+      })
+    ]
+  }
 }
