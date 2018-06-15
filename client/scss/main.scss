@@ -5,6 +5,7 @@ $ftc-header-is-silent: false;
 @import "@ftchinese/ftc-header/main.scss";
 
 @import "./responsetool.scss";
+@import "./form.scss";
 
 $defaultPink: #FFF1E0;
 $borderColor: #cec6b9;
@@ -78,20 +79,17 @@ body {
     font-style: normal;
     font-weight: 400;
 }
-// a {
-//     color: $darkGreen;
-//     //border-bottom: 1px dotted #27757b;
-//     text-decoration: none;
-//     &:hover, &:active {
-//     color: $darkGrey;
-//     //border-color: transparent;
-//   }
-//   &.highlight {
-//     color: $red;
-//   }
-// }
+
 div {
   line-height: $goldenRatio;
+}
+
+.ftc-header {
+  @include oGridRespondTo(S) {
+    position: relative;
+    z-index: 100;
+  }
+  
 }
 .signin-btn {
   box-sizing: border-box;
@@ -104,6 +102,11 @@ div {
   @include oGridRespondTo($until:L) {
     margin-top: 74px;
   }
+}
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 .page-title {
   font-size:20px;
@@ -125,9 +128,6 @@ img {
   padding:14px;
 }
 
-.chart-container {
-  margin-bottom: 1em;
-}
 
 .abcRioButton {
   float:right;

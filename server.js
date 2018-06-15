@@ -9,6 +9,7 @@ const config = require('./webpack.config.dev');
 const webpackMiddleware = require('koa-webpack');
 //const render = require('./lib/render.js')
 const nunjucks = require('nunjucks');
+const jetpack = require('fs-jetpack');
 
 const headerAllData = require('./data/storyTableAll');
 const headerIphoneData = require('./data/storyTableiPhone');
@@ -101,6 +102,19 @@ router.get('/all', async ctx => {
   });
   ctx.body = htmlResult;
 });
+
+router.get('/gap', async ctx => {
+  ctx.body = await render('admonitor-gap.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'adMonitorGap',
+    header: require('./data/adMonitorGap')
+  })
+});
+
+router.get('/chuanyang/pc.json',  ctx => {
+  ctx.body = jetpack.read('./chuanyang/pc.json', 'json')
+})
 
 app.use(router.routes());
 

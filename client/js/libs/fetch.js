@@ -1,32 +1,16 @@
 import {randomNum} from './consts.js';
+//const url = `http://10.99.10.12/index.php/jsapi/get_story_more_info/${storyId}`;
 
-async function fetchMoreInfoOfOneStory(storyId) {
-  //const url = `http://10.99.10.12/index.php/jsapi/get_story_more_info/${storyId}`;
-  const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}`;
-  return await fetch(url, {
-    mode: 'cors'
-  }).then(res => res.json());
+function fetchOneFileAsync(url, cbFunc) {
+  return fetch(url)
+    .then(res => 
+      res.json()
+    ).then( result => {
+      cbFunc(result);
+    });
 }
 
-function fetchOneStory(storyId) {
-  const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
 
-  return fetch(url, {
-    mode: 'cors'
-  }).then(res => res.json());
-}
-async function fetchMoreInfoOfStorys(storyIdArr,cbFunc) {
- return await Promise.all(
-    storyIdArr.map(oneId => fetchOneStory(oneId))
-  ).then(resArr => {
-    if(cbFunc) {
-      return resArr.map(item => cbFunc(item))
-    }
-    return resArr;
-  }).catch(errArr => {
-    return []
-  });
-}
 
 function fetchOneStoryAsync(storyId, cbFunc) {
   const url = `https://api001.ftmailbox.com/index.php/jsapi/get_story_more_info/${storyId}?${randomNum}`;
@@ -46,7 +30,7 @@ function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
     })
   ).then().catch();
 }
-export {fetchMoreInfoOfOneStory, fetchMoreInfoOfStorys,fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
+export {fetchOneFileAsync, fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
 
 //调用方式:const testFetch = await fetchMoreInfoOfOneStory('001077916');
 /** test

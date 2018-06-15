@@ -1,8 +1,32 @@
 function keysArr (gaReport) {
-  if (gaReport.data && gaReport.data.rows)
-  return gaReport.data.rows.map(row => row.dimensions ? row.dimensions[0] : []);
+  if (gaReport.data && gaReport.data.rows) {
+    return gaReport.data.rows.map(row => row.dimensions ? row.dimensions[0] : []);//如果该row.dimensions[0]按照'ga:date'，那么得到的Key的数组就是按照时间从小到大排好序的
+  }
+  return []
 }
 
+/**
+ * 
+ * @param {Object} report :返回的reports中的其中一个
+ * @param {Array} keys:要提取的数据纬度值数组的提取依据主键数组
+ */
+function extractArrayForOneField(report, keys) {
+  const reportUsefulDataArr = report.data.rows.map(item => {
+    const key = item.dimensions ? item.dimensions[0] : 'nokey'; //'nokey'其实是不可能的，但是为了保险起见，暂时加上
+    const value = (item.metrics && item.metrics[0] && item.metrics[0].values ) ? item.metrics[0].values[0] : '0';
+    const numValue = parseInt(value, 10);
+    return {
+     key,
+     value:numValue
+    }
+  });
+  console.log('reportUrsefulDataArr:');
+  console.log(reportUsefulDataArr);
+  const reportUsefulDataObj = tranformArrayToObj(reportUsefulDataArr, 'key');
+  return keys.map(key => (
+    reportUsefulDataObj[key] ? reportUsefulDataObj[key]['value'] : '0'
+  ));
+}
 /**
  * @description 根据ga响应原始数据集，得到想要的obj数据,一般用于给table用作数据集
  * @param {Array} gaResponseReports: ga响应原始数据集的reports字段值，即含有至多五个Obj的数组
@@ -111,7 +135,26 @@ function addPropsToData(data, addPropsArr) {
     return datum;
   });
 }
+/*********处理传漾data*******/
+function getOneAdIdImpFromCy(sourceData, adId, keys) {
+  const usefulDataArr = sourceData.filter(
+    item => item['投放ID'] == adId
+  ).map(
+    item => {
+      const date = item['日期'].replace(/-/g, '');
+      const imp = parseInt(item['显示数'], 10) || 0;
+      return {
+        date,
+        imp
+      }
+    }
+  );
+  const usefulDataObj = tranformArrayToObj(usefulDataArr, 'date');
 
+  return keys.map( key => (
+    usefulDataObj[key] ? usefulDataObj[key]['imp'] : 0
+  ));
+}
 
 /*** 数据计算方法 ***/
 /**
@@ -131,4 +174,17 @@ function divide(a,b) {
 function revenue(standardNum, premiumNum) {
   return standardNum * 198 + premiumNum * 1998
 }
-export { keysArr, extractObjData, tranformArrayToObj, merge2ObjBySumPropValue,mergeMultiObj, addPropsToData, divide, revenue};
+
+
+export { 
+  keysArr, 
+  extractArrayForOneField,
+  extractObjData, 
+  tranformArrayToObj,
+  merge2ObjBySumPropValue,
+  mergeMultiObj, 
+  addPropsToData, 
+  divide, 
+  revenue,
+  getOneAdIdImpFromCy
+};

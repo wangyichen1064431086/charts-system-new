@@ -1,0 +1,47 @@
+.ftc-form {
+  max-width: 380px;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+  @include oGridRespondTo(S) {
+    padding: 0 10px;
+  }
+}
+
+.ftc-form__label {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  display: block;
+  padding: 0;
+  color: #4d4845;
+}
+
+.ftc-form__additional-info {
+  font-family: MetricWeb, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  display: block;
+  color: #33302e;
+}
+
+.ftc-form__text {
+  margin-top: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 380px;
+  height: 38px;
+  padding: 10px 8px 10px;
+  border: 1px solid #b3a9a0;
+  border-radius: 0;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  color: #33302e;
+  font-family: MetricWeb, sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: 0.15s box-shadow ease-in;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

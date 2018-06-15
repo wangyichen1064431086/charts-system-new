@@ -11,7 +11,6 @@ import Table from '@ftchinese/ftc-table';
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
 
-
 FullHeader.init();
 
 const requestDataArr = [requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory];

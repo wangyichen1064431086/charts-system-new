@@ -610,4 +610,180 @@ const requestDataForWebStory = [//web转换的相关行为数据
   },
 ];
 
-export {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory}
+
+const requestDataForOneAd = function(adId){ //特定adId的广告相关数据
+  //const adIdExp = `\\(${adId}\\)$`;
+  const adIdExp = '\\('+adId+'\\)$';
+  return  [
+      { // record Request
+        'viewId': VIEW_ID_All,
+        'dateRanges': [
+          {
+            'startDate': startDate,
+            'endDate': endDate
+          }
+        ],
+        'metrics': [
+          {
+            'expression': 'ga:totalEvents'
+          }
+        ],
+        'dimensions': [
+          {
+            'name': 'ga:date'
+          }
+        ],
+        'dimensionFilterClauses': [
+          {
+            'operator': 'AND',
+            'filters': [
+              {
+                'dimensionName': 'ga:eventCategory',
+                'operator': 'REGEXP',
+                'expressions': [
+                  //'\\(605326\\)$'
+                  adIdExp
+                ],
+                'caseSensitive': true
+              },
+              {
+                'dimensionName': 'ga:eventAction',
+                'operator': 'EXACT',
+                'expressions': [
+                  'Request'
+                ],
+                'caseSensitive': true
+              }
+            ]
+          }
+        ]
+      },
+      { // record Success (include retry times)
+        'viewId': VIEW_ID_All,
+        'dateRanges': [
+          {
+            'startDate': startDate,
+            'endDate': endDate
+          }
+        ],
+        'metrics': [
+          {
+            'expression': 'ga:totalEvents'
+          }
+        ],
+        'dimensions': [
+          {
+            'name': 'ga:date'
+          }
+        ],
+        'dimensionFilterClauses': [
+          {
+            'operator': 'AND',
+            'filters': [
+              {
+                'dimensionName': 'ga:eventCategory',
+                'operator': 'REGEXP',
+                'expressions': [
+                  adIdExp
+                ],
+                'caseSensitive': true
+              },
+              {
+                'dimensionName': 'ga:eventAction',
+                'operator': 'BEGINS_WITH',
+                'expressions': [
+                  'Success'
+                ],
+                'caseSensitive': true
+              }
+            ]
+          }
+        ]
+      },
+      { // record Fail
+        'viewId': VIEW_ID_All,
+        'dateRanges': [
+          {
+            'startDate': startDate,
+            'endDate': endDate
+          }
+        ],
+        'metrics': [
+          {
+            'expression': 'ga:totalEvents'
+          }
+        ],
+        'dimensions': [
+          {
+            'name': 'ga:date'
+          }
+        ],
+        'dimensionFilterClauses': [
+          {
+            'operator': 'AND',
+            'filters': [
+              {
+                'dimensionName': 'ga:eventCategory',
+                'operator': 'REGEXP',
+                'expressions': [
+                  adIdExp
+                ],
+                'caseSensitive': true
+              },
+              {
+                'dimensionName': 'ga:eventAction',
+                'operator': 'EXACT',
+                'expressions': [
+                  'Fail'
+                ],
+                'caseSensitive': true
+              }
+            ]
+          }
+        ]
+      },
+      { // recored Success on Retry
+        'viewId': VIEW_ID_All,
+        'dateRanges': [
+          {
+            'startDate': startDate,
+            'endDate': endDate
+          }
+        ],
+        'metrics': [
+          {
+            'expression': 'ga:totalEvents'
+          }
+        ],
+        'dimensions': [
+          {
+            'name': 'ga:date'
+          }
+        ],
+        'dimensionFilterClauses': [
+          {
+            'operator': 'AND',
+            'filters': [
+              {
+                'dimensionName': 'ga:eventCategory',
+                'operator': 'REGEXP',
+                'expressions': [
+                  adIdExp
+                ],
+                'caseSensitive': true
+              },
+              {
+                'dimensionName': 'ga:eventAction',
+                'operator': 'BEGINS_WITH',
+                'expressions': [
+                  'Success on Retry'
+                ],
+                'caseSensitive': true
+              }
+            ]
+          }
+        ]
+      }
+    ];
+} 
+export {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory, requestDataForOneAd}
