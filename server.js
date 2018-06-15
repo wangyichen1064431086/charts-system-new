@@ -9,12 +9,15 @@ const config = require('./webpack.config.dev');
 const webpackMiddleware = require('koa-webpack');
 //const render = require('./lib/render.js')
 const nunjucks = require('nunjucks');
-const headerWebData = require('./data/webData');
-const headerIphoneData = require('./data/iPhoneData');
-const headerAndroidData = require('./data/androidData');
-const headerAllData = require('./data/allData');
-console.log(headerWebData);
+
+const headerAllData = require('./data/storyTableAll');
+const headerIphoneData = require('./data/storyTableiPhone');
+const headerAndroidData = require('./data/storyTableAndroid');
+const headerWebData = require('./data/storyTableWeb');
+
 const app = new Koa();
+const nodeEnv = process.env.NODE_ENV || '';
+console.log(`nodeEnv: ${nodeEnv}`);
 
 const compiler = webpack(config);
 
@@ -65,7 +68,7 @@ app.use(webpackMiddleware({
 
 router.get('/iphoneapp', async ctx => {
   const htmlResult = await render('storytable-iphoneapp.html', {
-    nodeEnv:'dev',
+    nodeEnv:nodeEnv,
     jsFile:'storyTableiPhone',
     header:headerIphoneData
   });
@@ -74,7 +77,7 @@ router.get('/iphoneapp', async ctx => {
 
 router.get('/androidapp', async ctx => {
   const htmlResult = await render('storytable-androidapp.html', {
-    nodeEnv:'dev',
+    nodeEnv:nodeEnv,
     jsFile:'storyTableAndroid',
     header:headerAndroidData
   });
@@ -83,7 +86,7 @@ router.get('/androidapp', async ctx => {
 
 router.get('/web', async ctx => {
   const htmlResult = await render('storytable-web.html', {
-    nodeEnv:'dev',
+    nodeEnv:nodeEnv,
     jsFile:'storyTableWeb',
     header:headerWebData
   });
@@ -92,7 +95,7 @@ router.get('/web', async ctx => {
 
 router.get('/all', async ctx => {
   const htmlResult = await render('storytable-all.html', {
-    nodeEnv:'dev',
+    nodeEnv:nodeEnv,
     jsFile:'storyTableAll',
     header:headerAllData
   });

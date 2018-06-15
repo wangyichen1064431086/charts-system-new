@@ -12,7 +12,9 @@
     <!--my id: 166811704494-d8tthgqdg7fs56ou745c8br1cp2a4gqi.apps.googleusercontent.com-->
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    {% if neadCharts %} 
+      {% include "highcharts-source.html" %}
+    {% endif %}
   </head>
 
   <body>
@@ -29,11 +31,9 @@
     <!-- Load the JavaScript API client and Sign-in library. -->
 
     <script src="https://apis.google.com/js/client:platform.js"></script>
-    <!-- {% if nodeEnv == 'dev'%}
+    {% if nodeEnv == 'development'%}
     <script src="/static/{{jsFile}}.js"></script>
-    {% else %}
-    <script src="./static/{{jsFile}}.js"></script>
-    {% endif %} -->
+    {% endif %}
 
   </body>
 </html>

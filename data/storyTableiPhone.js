@@ -1,3 +1,6 @@
+const urlPath = process.env.NODE_ENV === 'development' ? '/' : 'https://backyard.ftchinese.com/chartist/charts-system-new/';
+const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
+
 module.exports = {
   "myTitle":"付费文章Engagement: iPhoneApp",
 
@@ -13,7 +16,7 @@ module.exports = {
         "subChannels":[
           {
             "name":"All",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/all.html",
+            "url": `${urlPath}all${fileExt}`,
             "index":0
           },
           {
@@ -23,12 +26,12 @@ module.exports = {
           },
           {
             "name":"AndroidApp",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
+            "url":`${urlPath}androidapp${fileExt}`,
             "index":2
           },
           {
             "name":"Web",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/web.html",
+            "url":`${urlPath}web${fileExt}`,
             "index":3
           }
         ]  

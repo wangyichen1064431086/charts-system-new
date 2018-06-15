@@ -1,3 +1,5 @@
+const nodeEnv = process.env.NODE_ENV || '';
+
 module.exports = {
   "myTitle":"付费文章Engagement: All Devices",
 
@@ -18,17 +20,17 @@ module.exports = {
           },
           {
             "name":"iPhoneApp",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/iphoneapp.html",
+            "url": nodeEnv === 'development' ? '/iphoneapp': "https://backyard.ftchinese.com/chartist/charts-system-new/iphoneapp.html",
             "index":1
           },
           {
             "name":"AndroidApp",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
+            "url": nodeEnv === 'development' ? '/androidapp': "https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
             "index":2
           },
           {
             "name":"Web",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/web.html",
+            "url":nodeEnv === 'development' ? '/web': "https://backyard.ftchinese.com/chartist/charts-system-new/web.html",
             "index":3
           }
         ]  

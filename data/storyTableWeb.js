@@ -1,3 +1,6 @@
+const urlPath = process.env.NODE_ENV === 'development' ? '/' : 'https://backyard.ftchinese.com/chartist/charts-system-new/';
+const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
+
 const webData = {
   "myTitle":"付费文章Engagement: Web",
 
@@ -13,17 +16,17 @@ const webData = {
         "subChannels":[
           {
             "name":"All",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/all.html",
+            "url":`${urlPath}all${fileExt}`,
             "index":0
           },
           {
             "name":"iPhoneApp",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/iphoneapp.html",
+            "url":`${urlPath}iphoneapp${fileExt}`,
             "index":1
           },
           {
             "name":"AndroidApp",
-            "url":"https://backyard.ftchinese.com/chartist/charts-system-new/androidapp.html",
+            "url":`${urlPath}androidapp${fileExt}`,
             "index":2
           },
           {

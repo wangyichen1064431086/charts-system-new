@@ -4,20 +4,22 @@ const sassLoader = 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMap
 
 module.exports = {
   mode: 'development',
-  // entry: {
-  //   storyTableiPhone: './client/js/storyTableiPhone.js',
-  //   storyTableAndroid: './client/js/storyTableAndroid.js'
-  // },
+  entry: {
+    storyTableAll: ['./client/js/storyTableAll.js'],
+    storyTableiPhone: ['./client/js/storyTableiPhone.js'],
+    storyTableAndroid: ['./client/js/storyTableAndroid.js'],
+    storyTableWeb: ['./client/js/storyTableWeb.js'],
+  },
   //entry: ['./client/js/storyTableWeb.js'],
   //entry: ['./client/js/storyTableiPhone.js'],
   //entry: ['./client/js/storyTableAndroid.js'],
-  entry: ['./client/js/storyTableAll.js'],
+  //entry: ['./client/js/storyTableAll.js'],
   output: {
-    path: path.join(__dirname, '.tmp'),
+    path: path.join(__dirname, '.tmp'), //QUEST：怎样才能看到.tmp文件？
     //filename:'storyTableiPhone.js',
     //filename:'storyTableAndroid.js',
-    filename:'storyTableAll.js',
-    //filename: '[name].js',
+    //filename:'storyTableAll.js',
+    filename: '[name].js',
     publicPath:'/static/'
   },
   module: {
