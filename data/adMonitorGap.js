@@ -43,7 +43,7 @@ module.exports = {
         "subChannels":[
           {
             "name":"Gap",
-            "url": `${urlPath}gap${fileExt}`,
+            "url": `#`,
             "index":0
           }
         ]  

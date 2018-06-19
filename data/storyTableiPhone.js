@@ -36,6 +36,18 @@ module.exports = {
           }
         ]  
       },
+      {
+        "name": "广告监控",
+        "url": "#",
+        "index":1,
+        "subChannels":[
+          {
+            "name":"Gap",
+            "url": `${urlPath}gap${fileExt}`,
+            "index":0
+          }
+        ]  
+      }
     ]
   },
   "search": {

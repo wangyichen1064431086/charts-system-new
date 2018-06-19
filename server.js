@@ -112,9 +112,9 @@ router.get('/gap', async ctx => {
   })
 });
 
-router.get('/chuanyang/pc.json',  ctx => {
-  ctx.body = jetpack.read('./chuanyang/pc.json', 'json')
-})
+router.get('/chuanyang/cy.json',  ctx => {
+  ctx.body = jetpack.read('./chuanyang/cy.json', 'json')
+});
 
 app.use(router.routes());
 

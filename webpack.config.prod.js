@@ -13,13 +13,17 @@ const headerIphoneData = require('./data/storyTableiPhone');
 const headerAndroidData = require('./data/storyTableAndroid');
 const headerWebData = require('./data/storyTableWeb');
 
+const nodeEnv = process.env.NODE_ENV || '';
+console.log(nodeEnv);
+
 module.exports = {
   mode: 'production',
   entry: {
     storyTableiPhone: './client/js/storyTableiPhone.js',
     storyTableAndroid: './client/js/storyTableAndroid.js',
     storyTableWeb: './client/js/storyTableWeb.js',
-    storyTableAll: './client/js/storyTableAll.js'
+    storyTableAll: './client/js/storyTableAll.js',
+    adMonitorGap: './client/js/adMonitorGap.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -66,6 +70,7 @@ module.exports = {
               ],
               filters: {},
               context: {
+                nodeEnv:nodeEnv,
                 header: headerIphoneData
               }
             }
@@ -98,6 +103,7 @@ module.exports = {
               ],
               filters: {},
               context: {
+                nodeEnv:nodeEnv,
                 header: headerAndroidData
               }
             }
@@ -130,6 +136,7 @@ module.exports = {
               ],
               filters: {},
               context: {
+                nodeEnv:nodeEnv,
                 header: headerWebData
               }
             }
@@ -162,7 +169,42 @@ module.exports = {
               ],
               filters: {},
               context: {
+                nodeEnv:nodeEnv,
                 header: headerAllData
+              }
+            }
+          }
+        ]
+      },
+      {
+        resource:{
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/admonitor-gap.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
+        use: [
+          {
+            loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'nunjucks-html-loader',
+            options: {
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                nodeEnv:nodeEnv,
+                neadCharts: true,
+                header: require('./data/adMonitorGap')
               }
             }
           }
@@ -202,6 +244,12 @@ module.exports = {
       filename:'all.html',
       template:'views/pages/storytable-all.html',
       chunks:['storyTableAll']
+    }),
+
+    new HtmlWebpackPlugin({
+      filename:'gap.html',
+      template:'views/pages/admonitor-gap.html',
+      chunks:['adMonitorGap']
     })
 
   ],

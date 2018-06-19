@@ -45,3 +45,12 @@
   -moz-appearance: none;
   -webkit-appearance: none;
 }
+
+.ftc-form__errortext {
+  font-size: 14px;
+  line-height: 16px;
+  color: #c00;
+  clear: both;
+  display: block;
+  margin-top: 4px;
+}

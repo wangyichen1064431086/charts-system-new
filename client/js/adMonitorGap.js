@@ -8,24 +8,20 @@ import { fetchOneFileAsync } from './libs/fetch';
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
+import { get } from 'http';
 
 FullHeader.init();
 
 setGlobOptionsForHighcharts();
 
 const inputElem = document.getElementById('inputAdid');
-const adId = getAdId();
+const inputErrorElem = inputElem.nextElementSibling;
+
+let adId = getAdId();
 
 function getAdId() {
-  const adIdFromUrl = location.search.replace(/.*adid=([0-9]+)/, '$1') || '';
-  const adIdFromInput = inputElem.value || '';
-  if(adIdFromInput) {
-    if (adIdFromUrl) {
-       //TODO:更新location.search
-    }
-    return adIdFromInput;
-  }
-  return adIdFromUrl || '606658'; //没有值，那么默认为此值
+  return location.search.replace(/.*adid=([0-9]+)/, '$1') || '606658';//默认值
+  //test success:606666,606658
 }
 
 
@@ -34,6 +30,17 @@ function processDataFunc(responseDataArr) {
   console.log('responseData:');
   console.log(responseData);
   const datesArr = keysArr(responseData.reports[0]);
+  if(datesArr.length === 0) {
+    inputErrorElem.innerHTML = 'This adid has no data in ga';
+    const chartsDivArr = Array.from(document.querySelectorAll('.chart'));
+    chartsDivArr.forEach(elem => {
+      elem.innerHTML = '';
+    })
+
+    return;
+  }
+  console.log('datesArr:');
+  console.log(datesArr);
   const requestCountArr = extractArrayForOneField(responseData.reports[0], datesArr);
   const successCountArr = extractArrayForOneField(responseData.reports[1], datesArr);
   const failCountArr = extractArrayForOneField(responseData.reports[2], datesArr);
@@ -46,7 +53,7 @@ function processDataFunc(responseDataArr) {
       renderTo: 'requestCount'
     },
     title: {
-      text: 'Request Counts'
+      text: `Request Counts for ${adId}`
     },
     xAxis: {
       categories: datesArr
@@ -72,7 +79,7 @@ function processDataFunc(responseDataArr) {
       renderTo: 'successCount'
     },
     title: {
-      text: 'Success Counts'
+      text: `Success Counts  ${adId}`
     },
     xAxis: {
       categories: datesArr
@@ -102,7 +109,7 @@ function processDataFunc(responseDataArr) {
         renderTo: 'gapCount'
       },
       title: {
-        text: 'Success Counts'
+        text: `Gap Between Ga Request & Cy for ${adId}` 
       },
       xAxis: {
         categories: datesArr
@@ -126,11 +133,14 @@ function processDataFunc(responseDataArr) {
     });
     
   }
-  fetchOneFileAsync('/chuanyang/pc.json', cbFuncForFetch);
+
+  fetchOneFileAsync('./chuanyang/cy.json', cbFuncForFetch); //json转csv的工具<https://www.npmjs.com/package/papaparse>
 
 }
+
 function clickFunc() {
   console.log(adId);
+  adId = getAdId();
   const resultOfRequestDataForOneAd = requestDataForOneAd(adId);
   console.log(resultOfRequestDataForOneAd);
   const requestDataArr = [resultOfRequestDataForOneAd];
@@ -138,9 +148,22 @@ function clickFunc() {
   queryDifferentReports(requestDataArr, processDataFunc);
 }
 
-document.getElementById('inputAdid').addEventListener('keyup', (e) => {
-  if (e.keyCode === 13) { //如果按的是回车键，就自动执行clickFunc
-    clickFunc();
+inputElem.addEventListener('keyup', (e) => {
+  e.preventDefault();
+  if (e.keyCode === 13) { //如果按的是回车键，就执行url跳转
+    const adIdFromInput = inputElem.value || '';
+    if(!adIdFromInput) {
+      inputErrorElem.innerHTML = '请输入有效的广告投放ID';
+      return;
+    }
+    const search = location.search;
+    if(search.match(/adid=[0-9]+/)) {
+      console.log('1'); //用location.href比用location更保险
+      location.href = location.href.replace(/adid=[0-9]+/,'adid='+adIdFromInput);
+    } else {
+      console.log('2');
+      location.href = location.search ? (location.href + '&adid=' + adIdFromInput) : (location.href + '?adid=' + adIdFromInput);
+    }
   }
 })
 

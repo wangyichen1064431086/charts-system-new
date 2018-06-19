@@ -23,7 +23,7 @@ function fetchOneStoryAsync(storyId, cbFunc) {
   });
 }
 
-function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
+function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) { 
   Promise.all(
     storyIdArr.map(oneId => { //这里不能用forEach，forEach无返回值，那么Promise.all会报错
       return fetchOneStoryAsync(oneId, cbFunc);

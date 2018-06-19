@@ -1,5 +1,6 @@
 const nodeEnv = process.env.NODE_ENV || '';
-
+const urlPath = process.env.NODE_ENV === 'development' ? '/' : 'https://backyard.ftchinese.com/chartist/charts-system-new/';
+const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
 module.exports = {
   "myTitle":"付费文章Engagement: All Devices",
 
@@ -35,6 +36,18 @@ module.exports = {
           }
         ]  
       },
+      {
+        "name": "广告监控",
+        "url": "#",
+        "index":1,
+        "subChannels":[
+          {
+            "name":"Gap",
+            "url": `${urlPath}gap${fileExt}`,
+            "index":0
+          }
+        ]  
+      }
     ]
   },
   "search": {

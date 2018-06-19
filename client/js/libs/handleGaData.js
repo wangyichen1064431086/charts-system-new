@@ -149,6 +149,9 @@ function getOneAdIdImpFromCy(sourceData, adId, keys) {
       }
     }
   );
+  console.log('usefulDataArr:');
+  console.log(usefulDataArr);
+ 
   const usefulDataObj = tranformArrayToObj(usefulDataArr, 'date');
 
   return keys.map( key => (
