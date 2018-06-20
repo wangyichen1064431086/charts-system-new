@@ -5,10 +5,11 @@ import {requestDataForOneAd} from './libs/requestData';
 import { keysArr, extractArrayForOneField, extractObjData, getOneAdIdImpFromCy } from './libs/handleGaData.js';
 import { fetchOneFileAsync } from './libs/fetch';
 
-import {FullHeader} from '@ftchinese/ftc-header/main.js';
+import {FullHeader} from '@ftchinese/ftc-header';
 
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
-import { get } from 'http';
+
+import Papa from 'papaparse';
 
 FullHeader.init();
 

@@ -1,10 +1,12 @@
+@import "./responsetool.scss";
+
 $ftc-table-is-silent:false;
 @import "@ftchinese/ftc-table/main.scss";
 
 $ftc-header-is-silent: false;
 @import "@ftchinese/ftc-header/main.scss";
 
-@import "./responsetool.scss";
+
 @import "./form.scss";
 
 $defaultPink: #FFF1E0;
@@ -84,13 +86,7 @@ div {
   line-height: $goldenRatio;
 }
 
-.ftc-header {
-  @include oGridRespondTo(S) {
-    position: relative;
-    z-index: 100;
-  }
-  
-}
+
 .signin-btn {
   box-sizing: border-box;
   width: 100%;

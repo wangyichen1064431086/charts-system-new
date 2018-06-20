@@ -60,8 +60,9 @@
     "webpack-command": "^0.2.0"
   },
   "dependencies": {
-    "@ftchinese/ftc-header": "^2.1.0",
+    "@ftchinese/ftc-header": "^2.1.2",
     "@ftchinese/ftc-table": "^1.5.2",
+    "papaparse": "^4.5.0",
     "sass-mq": "^5.0.0"
   }
 }
