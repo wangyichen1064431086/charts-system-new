@@ -116,6 +116,9 @@ router.get('/chuanyang/cy.json',  ctx => {
   ctx.body = jetpack.read('./chuanyang/cy.json', 'json')
 });
 
+router.get('/chuanyang/cynew.csv',  ctx => {
+  ctx.body = jetpack.read('./chuanyang/cynew.csv', 'utf8')
+});
 app.use(router.routes());
 
 app.listen(8080)

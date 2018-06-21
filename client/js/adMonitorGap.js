@@ -3,7 +3,7 @@ import '../scss/main.scss';
 import {queryDifferentReports} from './libs/queryFuncs.js';
 import {requestDataForOneAd} from './libs/requestData';
 import { keysArr, extractArrayForOneField, extractObjData, getOneAdIdImpFromCy } from './libs/handleGaData.js';
-import { fetchOneFileAsync } from './libs/fetch';
+import { fetchOneFileAsync, fetchFileAsync } from './libs/fetch';
 
 import {FullHeader} from '@ftchinese/ftc-header';
 
@@ -102,6 +102,7 @@ function processDataFunc(responseDataArr) {
   
   const cbFuncForFetch = function(result) {
     //console.log(result);
+    //const jsonData = Papa(result)
     const cyImpArr = getOneAdIdImpFromCy(result, adId, datesArr);
     console.log(cyImpArr);
     const gapChart = new Highcharts.chart({
@@ -134,9 +135,15 @@ function processDataFunc(responseDataArr) {
     });
     
   }
-
-  fetchOneFileAsync('./chuanyang/cy.json', cbFuncForFetch); //json转csv的工具<https://www.npmjs.com/package/papaparse>
-
+  const cbFuncForFetchNew = function(csvStr) {
+    const jsonData = Papa.parse(csvStr, {
+      header:true
+    });
+    console.log('papa result:');
+    console.log(jsonData);
+  }
+  //fetchOneFileAsync('./chuanyang/cy.json', cbFuncForFetch); //json转csv的工具<https://www.npmjs.com/package/papaparse>
+  fetchFileAsync('./chuanyang/cynew.csv','text', cbFuncForFetchNew)
 }
 
 function clickFunc() {

@@ -10,6 +10,18 @@ function fetchOneFileAsync(url, cbFunc) {
     });
 }
 
+function fetchFileAsync(url, resType, cbFunc) {
+  return fetch(url)
+    .then(res => {
+      if (resType === 'json') {
+        return res.json();
+      } else {
+        return res.text();
+      }
+    }).then( result => {
+      cbFunc(result);
+    });
+}
 
 
 function fetchOneStoryAsync(storyId, cbFunc) {
@@ -30,7 +42,7 @@ function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
     })
   ).then().catch();
 }
-export {fetchOneFileAsync, fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
+export {fetchOneFileAsync, fetchFileAsync, fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
 
 //调用方式:const testFetch = await fetchMoreInfoOfOneStory('001077916');
 /** test
