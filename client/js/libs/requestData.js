@@ -790,7 +790,6 @@ const requestDataForOneAd = function(adId){ //特定adId的广告相关数据
 const adIdExp= '\\([0-9]+\\)$';
 
 //const {startDate:startDateForOneWeek, endDate:endDateForOneWeek} = periodForOneWeek;
-
 const requestDataForAds =  [
   { // record Request
     'viewId': VIEW_ID_All,
@@ -961,5 +960,589 @@ const requestDataForAds =  [
       }
     ]
   }
-]
+];
+
+const requestDataForAllUser = [
+  {//Web和Android App和iPhoneApp用户总量
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:users'
+      }
+    ]
+  }
+];
+const requestDataForiPhoneAppUser = [
+  {// iPhone App用户总量
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:users'
+      }
+    ]
+  },
+  {// buy success standard总数
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+    {
+        'expression': 'ga:totalEvents'
+    }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'In-App Purchase'//这个包括不限于Privilege
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'buy success'//加上buy success: com.ft.ftchinese.mobile.subscription.vip不一样
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                'dimensionName': 'ga:eventLabel',
+                'operator': 'EXACT',
+                'expressions': [
+                    'com.ft.ftchinese.mobile.subscription.member'
+                ],
+                'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium总数
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+    {
+        'expression': 'ga:totalEvents'
+    }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'In-App Purchase'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'buy success'
+                    ],
+                    'caseSensitive': true
+                }, 
+                {
+                    'dimensionName': 'ga:eventLabel',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'com.ft.ftchinese.mobile.subscription.vip'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success standard daily
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'In-App Purchase'//这个包括不限于Privilege
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'buy success'//加上buy success: com.ft.ftchinese.mobile.subscription.vip不一样
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                'dimensionName': 'ga:eventLabel',
+                'operator': 'EXACT',
+                'expressions': [
+                    'com.ft.ftchinese.mobile.subscription.member'
+                ],
+                'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium daily
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'In-App Purchase'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'buy success'
+                    ],
+                    'caseSensitive': true
+                }, 
+                {
+                    'dimensionName': 'ga:eventLabel',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'com.ft.ftchinese.mobile.subscription.vip'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  }
+];
+
+const requestDataForAndroidAppUser = [//Android App相关用户数据
+  {// Android用户总量
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:users'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:pagePath',
+            'operator': 'REGEXP',
+            'expressions': [
+              '/phone/|phoneapp.html|phone.html|androidapp.html|iphone-2014.html|bb-2014.html|ftcapp'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:operatingSystem',
+            'operator': 'EXACT',
+            'expressions': [
+              'Android'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  },
+  {// buy success standard总数
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Android Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Buy success: ftc_standard'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium总数
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+    {
+        'expression': 'ga:totalEvents'
+    }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Android Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Buy success: ftc_premium'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success standard daily
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Android Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Buy success: ftc_standard'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium daily
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Android Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Buy success: ftc_premium'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  }
+];
+
+const requestDataForWebUser = [ //Web相关用户数据
+ //总量可以根据总量-AndroidApp总量-iPhoneApp总量
+  {// buy success standard总数
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Web Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Buy Success:Standard'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium总数
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+    {
+        'expression': 'ga:totalEvents'
+    }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Web Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Buy Success:Premium'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success standard daily
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Web Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Buy Success:Standard'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  },
+  {// buy success premium daily
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+    {
+        'startDate': startDate,
+        'endDate': endDate
+    }
+    ],
+    'metrics': [
+        {
+            'expression': 'ga:totalEvents'
+        }
+    ],
+    'dimensions': [
+        {
+            'name': 'ga:date'
+        }
+    ],
+    'dimensionFilterClauses': [
+        {
+            'operator': 'AND',
+            'filters': [
+                {
+                    'dimensionName': 'ga:eventCategory',
+                    'operator': 'EXACT',
+                    'expressions': [
+                    'Web Privileges'
+                    ],
+                    'caseSensitive': true
+                },
+                {
+                    'dimensionName': 'ga:eventAction',
+                    'operator': 'EXACT',
+                    'expressions': [
+                        'Buy Success:Premium'
+                    ],
+                    'caseSensitive': true
+                }
+            ]
+        }
+    ]
+  }
+];
+
 export {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory, requestDataForOneAd, requestDataForAds}

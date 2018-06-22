@@ -23,7 +23,9 @@ module.exports = {
     storyTableAndroid: './client/js/storyTableAndroid.js',
     storyTableWeb: './client/js/storyTableWeb.js',
     storyTableAll: './client/js/storyTableAll.js',
-    adMonitorGap: './client/js/adMonitorGap.js'
+    adMonitorGap: './client/js/adMonitorGap.js',
+    adMonitorIndex: './client/js/adMonitorIndex.js'
+
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -209,7 +211,43 @@ module.exports = {
             }
           }
         ]
+      },
+      
+      {
+        resource:{
+          test:/\.html$/,
+          or:[
+            path.resolve(__dirname, 'views/pages/admonitor-index.html'),
+            path.resolve(__dirname, 'views/partials'),
+            path.resolve(__dirname, 'views/*.html')
+          ]
+        },
+        use: [
+          {
+            loader: 'html-loader',//https://webpack.js.org/loaders/html-loader/
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'nunjucks-html-loader',
+            options: {
+              searchPaths: [
+                path.resolve(__dirname, 'views'),
+                path.resolve(__dirname, 'views/pages'),
+                path.resolve(__dirname, 'views/partials')
+              ],
+              filters: {},
+              context: {
+                nodeEnv:nodeEnv,
+                neadCharts: true,
+                header: require('./data/adMonitorIndex')
+              }
+            }
+          }
+        ]
       }
+      
     ]
   },
   plugins: [
@@ -250,7 +288,14 @@ module.exports = {
       filename:'gap.html',
       template:'views/pages/admonitor-gap.html',
       chunks:['adMonitorGap']
+    }),
+    
+    new HtmlWebpackPlugin({
+      filename:'gapindex.html',
+      template:'views/pages/admonitor-index.html',
+      chunks:['adMonitorIndex']
     })
+    
 
   ],
 

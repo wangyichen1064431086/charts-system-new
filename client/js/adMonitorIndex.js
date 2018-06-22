@@ -4,65 +4,68 @@ import {queryDifferentReports} from './libs/queryFuncs.js';
 
 import {requestDataForAds} from './libs/requestData.js';
 import {renderDataToTable} from './libs/renderData.js';
-import { keysArr, extractObjData, addPropsToData, divide, revenue } from './libs/handleGaData.js'
+import { keysArr, extractObjData, addPropsToData, divide, revenue, extractArrayForOneField, topDataByOneField } from './libs/handleGaData.js'
 import {fetchMoreInfoOfStorysAsync} from './libs/fetch.js';
 import {formatDate} from './libs/handleDate';
 import Table from '@ftchinese/ftc-table';
+ /*TODO:增加ftc-table功能:
+ 1. 关键字段可以有链接跳转
+ 2. 字段值有高、中、低颜色区分
+ */
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
 FullHeader.init();
 const requestDataArr = [requestDataForAds];
 
 function processDataFunc(responseDataArr) {
-  const responseData = responseDataArr[0]
+  const responseData = responseDataArr[0];
   const labelKeys = keysArr(responseData.reports[0]);
-  const objData = extractObjData(responseData.reports, ["story","disp","tap","buySucS","buySucP"],labelKeys,'buySucS');
 
-  const assignedObjData = objData.map(item => {
-    item.id = item.story.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1');
-   
-    return Object.assign(item, {
-      title: 'waiting...',
-      pubdate: 'waiting...'
-    });
 
-  });
 
-  const newObjData = addPropsToData(assignedObjData, [{
+  const requestCountArr = extractArrayForOneField(responseData.reports[0], labelKeys);
+
+  const keyAndRequestObjArr = labelKeys.map((item, index) => (
+    {
+      adName: item,
+      request: requestCountArr[index]
+    }
+  ));
+  console.log('keyAndRequestObjArr:');
+  console.log(keyAndRequestObjArr);
+  
+  const requestTop30Arr = topDataByOneField(keyAndRequestObjArr, 'request', 30);
+  const requestTop30AdNameArr = requestTop30Arr.map(item => (
+    item.adName
+  ));
+
+  const objData = extractObjData(responseData.reports, ["adName","request","success","fail","sucOnRetry"], requestTop30AdNameArr);
+  console.log(objData);
+  objData.forEach(item => {
+    const adNum = item.adName.replace(/.*\(([0-9]+)\)/,'$1');
+    item.adName = `<a href="https://backyard.ftchinese.com/chartist/charts-system-new/gap.html?adid=${adNum}">${adNum}</a>`
+  })
+
+  const newObjData = addPropsToData(objData, [{
     operateFunc:divide,
-    prop1:"buySucS",
-    prop2:"disp",
-    propNew:"Conversion"
+    prop1:"success",
+    prop2:"request",
+    propNew:"successRate"
   },{
-    operateFunc: revenue,
-    prop1:'buySucS',
-    prop2:'buySucP',
-    propNew: 'Revenue'
+    operateFunc: divide,
+    prop1:'fail',
+    prop2:'request',
+    propNew: 'failRate'
+  },{
+    operateFunc: divide,
+    prop1:'sucOnRetry',
+    prop2:'request',
+    propNew: 'sucOnRetryRate'
   }]);
   console.log(newObjData);
 
-  renderDataToTable('storyOfIphoneApp', newObjData, ["id","title","pubdate","disp","tap","buySucS","buySucP","Conversion",'Revenue'], ["disp","tap","pop","buySucS","buySucP", "Revenue"]);
-  new Table('#storyOfIphoneApp');
-
-
-  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));
-  const tableElem = document.getElementById('storyOfIphoneApp');
-  const cbFunc = function(moreInfoData) {
-    const id = moreInfoData.id||'';
-    const title = moreInfoData.cheadline || '标题缺失';
-    const pubdate = moreInfoData.pubdate ? formatDate((parseInt(moreInfoData.pubdate,10) + 28800) * 1000) : ''
-    
-    if (id) {
-      const targetTr = tableElem.querySelector(`[data-storyid="${id}"]`);
-      const targetTitleTd = targetTr.querySelector('td:nth-child(2)');
-      const targetPubdateTd = targetTr.querySelector('td:nth-child(3)');
-      targetTitleTd.innerHTML = title;
-      targetPubdateTd.innerHTML = pubdate;
-    }
-  }
-
-  fetchMoreInfoOfStorysAsync(storyIdArr, cbFunc);
-  
+  renderDataToTable('adMonitorIndex', newObjData, ["adName","request","success","fail","sucOnRetry",'successRate', 'failRate', 'sucOnRetryRate'], ['successRate', 'failRate', 'sucOnRetryRate']);
+  new Table('#adMonitorIndex');
 }
 
 function clickFunc() {

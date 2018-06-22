@@ -1,13 +1,13 @@
 const urlPath = process.env.NODE_ENV === 'development' ? '/' : 'https://backyard.ftchinese.com/chartist/charts-system-new/';
 const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
 
-const webData = {
-  "myTitle":"付费文章Engagement: Web",
+module.exports = {
+  "myTitle":"广告监控：RequestTop30广告数据",
 
   
 	"nav": {
-    "indexForSelectedTopChannel": 0,
-    "indexForSelectedSubChannel": 3,
+    "indexForSelectedTopChannel": 1,
+    "indexForSelectedSubChannel": 1,
     "topChannels": [
       {
         "name": "付费文章",
@@ -16,7 +16,7 @@ const webData = {
         "subChannels":[
           {
             "name":"All",
-            "url":`${urlPath}all${fileExt}`,
+            "url": `${urlPath}all${fileExt}`,
             "index":0
           },
           {
@@ -31,7 +31,7 @@ const webData = {
           },
           {
             "name":"Web",
-            "url":"#",
+            "url":`${urlPath}web${fileExt}`,
             "index":3
           }
         ]  
@@ -48,11 +48,11 @@ const webData = {
           },
           {
             "name":"GapIndex",
-            "url": `${urlPath}gapindex${fileExt}`,
+            "url": `#`,
             "index":1
           }
         ]  
-      }
+      },
     ]
   },
   "search": {
@@ -60,5 +60,3 @@ const webData = {
 		"placeholderText":"输入年月日‘xxxx-xx-xx’可搜索该日存档"
 	}
 }
-
-module.exports = webData;

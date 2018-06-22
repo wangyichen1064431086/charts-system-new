@@ -40,8 +40,8 @@ function processDataFunc(responseDataArr) {
 
     return;
   }
-  console.log('datesArr:');
-  console.log(datesArr);
+  // console.log('datesArr:');
+  // console.log(datesArr);
   const requestCountArr = extractArrayForOneField(responseData.reports[0], datesArr);
   const successCountArr = extractArrayForOneField(responseData.reports[1], datesArr);
   const failCountArr = extractArrayForOneField(responseData.reports[2], datesArr);

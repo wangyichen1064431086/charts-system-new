@@ -9,8 +9,8 @@ module.exports = {
     storyTableiPhone: ['./client/js/storyTableiPhone.js'],
     storyTableAndroid: ['./client/js/storyTableAndroid.js'],
     storyTableWeb: ['./client/js/storyTableWeb.js'],
-
-    adMonitorGap: ['./client/js/adMonitorGap.js']
+    adMonitorGap: ['./client/js/adMonitorGap.js'],
+    adMonitorIndex: ['./client/js/adMonitorIndex.js']
   },
 
   output: {

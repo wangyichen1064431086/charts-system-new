@@ -100,7 +100,7 @@ div {
   }
 }
 .page-container {
-  max-width: 1000px;
+ // max-width: 1000px;
   margin: 0 auto;
   padding: 0 10px;
 }
@@ -110,7 +110,7 @@ div {
   padding:14px 0;
 }
 .page-description {
-  margin-bottom: 1em;
+  margin: 0 50px 1em;  
 }
 .question-description {
   color: #777;
@@ -118,12 +118,16 @@ div {
 img {
   max-width: 100%;
 }
+.chart {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
 .chart-title {
   font-size: 18px;
   font-weight: bold;
   padding:14px;
 }
-
 
 .abcRioButton {
   float:right;

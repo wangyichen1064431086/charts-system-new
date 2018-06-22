@@ -45,6 +45,11 @@ module.exports = {
             "name":"Gap",
             "url": `#`,
             "index":0
+          },
+          {
+            "name":"GapIndex",
+            "url": `${urlPath}gapindex${fileExt}`,
+            "index":1
           }
         ]  
       },

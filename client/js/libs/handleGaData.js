@@ -149,6 +149,40 @@ function getRateArrForTwoArr(arr1, arr2) {
     Math.round((item / arr2[index]) * 10000) / 100
   ))
 }
+
+/**
+ * @description 对对象数组根据某一个属性值进行从高到底排序，并取得前若干项组成的数组
+ * @param {Array} objArr [Obj, Obj, Obj]
+ * @param {String} sortedField 数组中每项的Obj中准备以为排序标准的属性名称
+ * @param {Num} topNum  要取得前多少项
+ * @returns objArr中对每项根据sortedField排序后的前topNum项组成的数组
+ */
+function topDataByOneField(objArr, sortedField, topNum) {
+  const filteredObjArr = objArr.filter(item => {
+    if (item[sortedField] === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  });
+  if (filteredObjArr.length === 0) {
+    return [];
+  }
+
+  filteredObjArr.sort((itemA, itemB) => {
+    if (itemA[sortedField] > itemB[sortedField]) { //大项在前，从大到小排序
+      return -1;
+    } else {
+      return 1
+    }
+  });//NOTE:sort是就地排序，改变原数组
+
+  if (filteredObjArr.length > topNum) {
+    return filteredObjArr.slice(0, topNum);
+  } else {
+    return filteredObjArr;
+  }
+}
 /*********处理传漾data*******/
 function getOneAdIdImpFromCy(sourceData, adId, keys) {
   const usefulDataArr = sourceData.filter(
@@ -204,5 +238,6 @@ export {
   divide, 
   revenue,
   getOneAdIdImpFromCy,
-  getRateArrForTwoArr
+  getRateArrForTwoArr,
+  topDataByOneField
 };

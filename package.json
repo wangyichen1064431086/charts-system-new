@@ -13,8 +13,8 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:node": "cross-env NODE_ENV=development node build.js",
     "build:publish": "cpx  \"dist/**/*\" \"../dev_cms/chartist/charts-system-new\" ",
-    "build:copyOtherSource": "cpx  \"chuanyang/* \" \"../dev_cms/chartist/charts-system-new/chuanyang\" ",
-    "build": "npm run clean && npm run build:webpack && npm run build:publish && build:copyOtherSource"
+    "build:copyOtherSource": "cpx  \"chuanyang/cynew.csv\" \"../dev_cms/chartist/charts-system-new/chuanyang\" ",
+    "build": "npm run clean && npm run build:webpack && npm run build:publish && npm run build:copyOtherSource"
   },
   "repository": {
     "type": "git",

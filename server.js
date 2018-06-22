@@ -112,6 +112,15 @@ router.get('/gap', async ctx => {
   })
 });
 
+router.get('/gapindex', async ctx => {
+  ctx.body = await render('admonitor-index.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'adMonitorIndex',
+    header: require('./data/adMonitorIndex')
+  })
+});
+
 router.get('/chuanyang/cy.json',  ctx => {
   ctx.body = jetpack.read('./chuanyang/cy.json', 'json')
 });

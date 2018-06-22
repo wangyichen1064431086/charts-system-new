@@ -2,16 +2,19 @@
 {% block content %}
 <div class="page-container">
   <div class="page-description">
+    
     <p>The default data are about the ad whose id is the value of the url search param 'adid'. </p>
     <p>If you focus on one other ad, please write its id here, then hit the "Enter" key</p>
-  </div>
+ 
 
-  <form class="ftc-form">
-    <label for="inputAdid" class="ftc-form__label">Adid</label>
-    <small class="ftc-form__additional-info">The id of the ad you care about</small>
-    <input type="text" id="inputAdid" placeholder="" class="ftc-form__text" >
-    <div class="ftc-form__errortext"> </div>
-  </form>
+    <form class="ftc-form">
+      <label for="inputAdid" class="ftc-form__label">Adid</label>
+      <small class="ftc-form__additional-info">The id of the ad you care about</small>
+      <input type="text" id="inputAdid" placeholder="" class="ftc-form__text" >
+      <div class="ftc-form__errortext"> </div>
+    </form>
+
+  </div>
 
   
   <div class="chart" id="requestCount">
