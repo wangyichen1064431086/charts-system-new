@@ -123,7 +123,7 @@ function mergeMultiObj(merge2ObjFunc, objArr, sumPropArray) {
  *    @param {String} Obj.prop1 第一个被操作数在数据集中的属性名称
  *    @param {String} Obj.prop2 第二个被操作数在数据集中的属性名称
  *    @param {String} Obj.propNew 操作后的结果在数据集中的属性名称
- */
+*/
 function addPropsToData(data, addPropsArr) {
   return data.map(datum => {
     for (const item of addPropsArr) {
@@ -134,6 +134,20 @@ function addPropsToData(data, addPropsArr) {
     }
     return datum;
   });
+}
+
+/**
+ * @description 得到两数组对应index值的比例组成的数组
+ * @param {Array} arr1
+ * @param {Array} arr2
+ */
+function getRateArrForTwoArr(arr1, arr2) {
+  if (arr1.length === 0 || arr2.length === 0 || arr1.length !== arr2.length) {
+    return;
+  }
+  return arr1.map((item, index) => (
+    Math.round((item / arr2[index]) * 10000) / 100
+  ))
 }
 /*********处理传漾data*******/
 function getOneAdIdImpFromCy(sourceData, adId, keys) {
@@ -189,5 +203,6 @@ export {
   addPropsToData, 
   divide, 
   revenue,
-  getOneAdIdImpFromCy
+  getOneAdIdImpFromCy,
+  getRateArrForTwoArr
 };

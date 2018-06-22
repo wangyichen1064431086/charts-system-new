@@ -2,7 +2,7 @@ import '../scss/main.scss';
 
 import {queryDifferentReports} from './libs/queryFuncs.js';
 import {requestDataForOneAd} from './libs/requestData';
-import { keysArr, extractArrayForOneField, extractObjData, getOneAdIdImpFromCy } from './libs/handleGaData.js';
+import { keysArr, extractArrayForOneField, extractObjData, getOneAdIdImpFromCy, getRateArrForTwoArr } from './libs/handleGaData.js';
 import { fetchOneFileAsync, fetchFileAsync } from './libs/fetch';
 
 import {FullHeader} from '@ftchinese/ftc-header';
@@ -100,14 +100,24 @@ function processDataFunc(responseDataArr) {
     }]
   });
   
-  const cbFuncForFetch = function(result) {
-    //console.log(result);
-    //const jsonData = Papa(result)
-    const cyImpArr = getOneAdIdImpFromCy(result, adId, datesArr);
+  const cbFuncForFetch = function(csvStr) {
+    const papaResult = Papa.parse(csvStr, {
+      header:true
+    });
+    console.log('papa result:');
+    console.log(papaResult);
+    let jsonData;
+    if (papaResult.data && papaResult.data.length > 0) {
+      jsonData = papaResult.data;
+    } else {
+      return;
+    }
+    const cyImpArr = getOneAdIdImpFromCy(jsonData, adId, datesArr);
     console.log(cyImpArr);
+    const rateImpArr = getRateArrForTwoArr(requestCountArr, cyImpArr);
     const gapChart = new Highcharts.chart({
       chart: {
-        type: 'column',
+        //type: 'column',
         renderTo: 'gapCount'
       },
       title: {
@@ -116,34 +126,45 @@ function processDataFunc(responseDataArr) {
       xAxis: {
         categories: datesArr
       },
-      yAxis: {
+      yAxis: [{
         title: {
           text: 'counts'
         }
-      },
+      },{
+        title: {
+          text: 'rate'
+        },
+        labels: {
+          format: '{value}%'
+        },
+        opposite: true
+      }],
       tooltip: {
         pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.1f}</b><br/>',
         shared: true
       },
       series: [{
+        type: 'column',
         name: 'Ga',
+        yAxis: 0,
         data: requestCountArr
       },{
+        type: 'column',
         name: 'Cy',
+        yAxis: 0,
         data: cyImpArr
+      },{
+        type: 'spline',
+        name: 'rate',
+        yAxis: 1,
+        data: rateImpArr
       }]
     });
     
   }
-  const cbFuncForFetchNew = function(csvStr) {
-    const jsonData = Papa.parse(csvStr, {
-      header:true
-    });
-    console.log('papa result:');
-    console.log(jsonData);
-  }
+
   //fetchOneFileAsync('./chuanyang/cy.json', cbFuncForFetch); //json转csv的工具<https://www.npmjs.com/package/papaparse>
-  fetchFileAsync('./chuanyang/cynew.csv','text', cbFuncForFetchNew)
+  fetchFileAsync('./chuanyang/cynew.csv','text', cbFuncForFetch)
 }
 
 function clickFunc() {
