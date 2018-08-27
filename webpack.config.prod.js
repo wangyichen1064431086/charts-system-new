@@ -25,7 +25,6 @@ module.exports = {
     storyTableAll: './client/js/storyTableAll.js',
     adMonitorGap: './client/js/adMonitorGap.js',
     adMonitorIndex: './client/js/adMonitorIndex.js'
-
   },
   output: {
     path: path.join(__dirname, 'dist'),

@@ -31,7 +31,9 @@ function fetchOneStoryAsync(storyId, cbFunc) {
   }).then(res => 
     res.json() //也返回的是一个promise
   ) .then( result => {
-    cbFunc(result);
+    // cbFunc(result);
+    const changeUI = function() {cbFunc(result)};
+    window.requestAnimationFrame(changeUI);
   });
 }
 

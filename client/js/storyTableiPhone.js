@@ -46,8 +46,10 @@ function processDataFunc(responseDataArr) {
   new Table('#storyOfIphoneApp');
 
 
-  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));
+  const storyIdArr = labelKeys.map(item => item.replace(/^ExclusiveContent\/premium\/([0-9]{9})/, '$1'));//TODO:变成50篇50篇地请求
+  console.log('storyIdArr.length',storyIdArr.length);
   const tableElem = document.getElementById('storyOfIphoneApp');
+
   const cbFunc = function(moreInfoData) {
     const id = moreInfoData.id||'';
     const title = moreInfoData.cheadline || '标题缺失';

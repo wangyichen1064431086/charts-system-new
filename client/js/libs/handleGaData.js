@@ -4,7 +4,19 @@ function keysArr (gaReport) {
   }
   return []
 }
-
+/**
+ * 
+ * @param {Object} report :返回的reports中的其中一个
+ * @return {String} 一个report所得的单一值
+ */
+function getOneValue(report) {
+  try {
+    return report.data.rows[0].metrics[0].values[0];
+  } catch(err) {
+    console.log('The data structure may be wrong:',err);
+    return ''
+  }
+}
 /**
  * 
  * @param {Object} report :返回的reports中的其中一个
@@ -239,5 +251,7 @@ export {
   revenue,
   getOneAdIdImpFromCy,
   getRateArrForTwoArr,
-  topDataByOneField
+  topDataByOneField,
+
+  getOneValue
 };

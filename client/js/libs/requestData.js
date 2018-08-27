@@ -1,6 +1,6 @@
 import {VIEW_ID_All, VIEW_ID_iPhoneApp, startDate, endDate, periodForOneWeek} from './consts.js';
 
-
+/// paidstory related data
 const requestDataForiPhoneAppStory = [//以文章id划分的数据:premium线
   {
       'viewId': VIEW_ID_iPhoneApp,
@@ -610,7 +610,7 @@ const requestDataForWebStory = [//web转换的相关行为数据
   },
 ];
 
-
+/// ad monitor related data
 const requestDataForOneAd = function(adId){ //特定adId的广告相关数据
   //const adIdExp = `\\(${adId}\\)$`;
   const adIdExp = '\\('+adId+'\\)$';
@@ -962,6 +962,8 @@ const requestDataForAds =  [
   }
 ];
 
+
+/// pyramid related data
 const requestDataForAllUser = [
   {//Web和Android App和iPhoneApp用户总量
     'viewId': VIEW_ID_All,
@@ -1545,4 +1547,16 @@ const requestDataForWebUser = [ //Web相关用户数据
   }
 ];
 
-export {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory, requestDataForOneAd, requestDataForAds}
+export {
+  requestDataForiPhoneAppStory, 
+  requestDataForAndroidAppStory, 
+  requestDataForWebStory, 
+
+  requestDataForOneAd, 
+  requestDataForAds,
+
+  requestDataForAllUser,
+  requestDataForiPhoneAppUser,
+  requestDataForAndroidAppUser,
+  requestDataForWebUser
+}

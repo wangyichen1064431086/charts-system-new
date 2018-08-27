@@ -1,7 +1,7 @@
 const path = require('path');
 const Koa = require('koa');
 const logger = require('koa-logger');
-const router = require('koa-router')();
+const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 
 const webpack = require('webpack');
@@ -67,7 +67,13 @@ app.use(webpackMiddleware({
   hot: compiler
 }));
 
-router.get('/iphoneapp', async ctx => {
+const router = new Router();
+
+const paidStoryRouter = new Router();
+const adMonitorRouter = new Router();
+
+//paidStoryRouter
+paidStoryRouter.get('/iphoneapp', async ctx => {
   const htmlResult = await render('storytable-iphoneapp.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableiPhone',
@@ -76,7 +82,7 @@ router.get('/iphoneapp', async ctx => {
   ctx.body = htmlResult;
 });
 
-router.get('/androidapp', async ctx => {
+paidStoryRouter.get('/androidapp', async ctx => {
   const htmlResult = await render('storytable-androidapp.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableAndroid',
@@ -85,7 +91,7 @@ router.get('/androidapp', async ctx => {
   ctx.body = htmlResult;
 });
 
-router.get('/web', async ctx => {
+paidStoryRouter.get('/web', async ctx => {
   const htmlResult = await render('storytable-web.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableWeb',
@@ -94,7 +100,7 @@ router.get('/web', async ctx => {
   ctx.body = htmlResult;
 });
 
-router.get('/all', async ctx => {
+paidStoryRouter.get('/all', async ctx => {
   const htmlResult = await render('storytable-all.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableAll',
@@ -103,7 +109,13 @@ router.get('/all', async ctx => {
   ctx.body = htmlResult;
 });
 
-router.get('/gap', async ctx => {
+router.use('/paidstory', paidStoryRouter.routes());
+router.get('/', ctx => {
+  ctx.redirect('/paidstory/iphoneapp');
+});
+
+// adMonitorRouter
+adMonitorRouter.get('/gap', async ctx => {
   ctx.body = await render('admonitor-gap.html', {
     nodeEnv: nodeEnv,
     neadCharts: true,
@@ -112,7 +124,7 @@ router.get('/gap', async ctx => {
   })
 });
 
-router.get('/gapindex', async ctx => {
+adMonitorRouter.get('/gapindex', async ctx => {
   ctx.body = await render('admonitor-index.html', {
     nodeEnv: nodeEnv,
     neadCharts: true,
@@ -121,6 +133,8 @@ router.get('/gapindex', async ctx => {
   })
 });
 
+router.use('/admonitor', adMonitorRouter.routes());
+/*
 router.get('/chuanyang/cy.json',  ctx => {
   ctx.body = jetpack.read('./chuanyang/cy.json', 'json')
 });
@@ -128,6 +142,7 @@ router.get('/chuanyang/cy.json',  ctx => {
 router.get('/chuanyang/cynew.csv',  ctx => {
   ctx.body = jetpack.read('./chuanyang/cynew.csv', 'utf8')
 });
+*/
 app.use(router.routes());
 
 app.listen(8080)
