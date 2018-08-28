@@ -1547,6 +1547,561 @@ const requestDataForWebUser = [ //Web相关用户数据
   }
 ];
 
+const requestDataForiphoneAppUserBehavior = [//IPhoneApp转换的相关行为数据
+  {
+      'viewId': VIEW_ID_iPhoneApp,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Display'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      'viewId': VIEW_ID_iPhoneApp,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                          'Tap Subscription'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      'viewId': VIEW_ID_iPhoneApp,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                          'Pop Subscription'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'buy success: com.ft.ftchinese.mobile.subscription.member'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'viewId': VIEW_ID_iPhoneApp,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'buy success: com.ft.ftchinese.mobile.subscription.vip'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const requestDataForAndroidAppUserBehavior = [//androidApp转换的相关行为数据
+  {
+      'viewId': VIEW_ID_All,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Android Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Display'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      'viewId': VIEW_ID_All,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Android Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                          'Tap'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Android Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'Buy success: ftc_standard'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Android Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'Buy success: ftc_premium'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const requestDataForWebUserBehavior = [//web转换的相关行为数据
+  {
+      'viewId': VIEW_ID_All,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Web Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Display'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      'viewId': VIEW_ID_All,
+      'dateRanges': [
+      {
+          'startDate': startDate,
+          'endDate': endDate
+      }
+      ],
+      'metrics': [
+          {
+              'expression': 'ga:totalEvents'
+          }
+      ],
+      'dimensions': [
+          {
+              'name': 'ga:date'
+          }
+      ],
+      'dimensionFilterClauses': [
+          {
+              'operator': 'AND',
+              'filters': [
+                  {
+                      'dimensionName': 'ga:eventCategory',
+                      'operator': 'EXACT',
+                      'expressions': [
+                      'Web Privileges'
+                      ],
+                      'caseSensitive': true
+                  },
+                  {
+                      'dimensionName': 'ga:eventAction',
+                      'operator': 'EXACT',
+                      'expressions': [
+                          'Tap'
+                      ],
+                      'caseSensitive': true
+                  }
+              ]
+          }
+      ]
+  },
+  {
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Web Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'Buy: Standard'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    'viewId': VIEW_ID_All,
+    'dateRanges': [
+      {
+        'startDate': startDate,
+        'endDate': endDate
+      }
+    ],
+    'metrics': [
+      {
+        'expression': 'ga:totalEvents'
+      }
+    ],
+    'dimensions': [
+      {
+        'name': 'ga:date'
+      }
+    ],
+    'dimensionFilterClauses': [
+      {
+        'operator': 'AND',
+        'filters': [
+          {
+            'dimensionName': 'ga:eventCategory',
+            'operator': 'EXACT',
+            'expressions': [
+              'Web Privileges'
+            ],
+            'caseSensitive': true
+          },
+          {
+            'dimensionName': 'ga:eventAction',
+            'operator': 'EXACT',
+            'expressions': [
+              'Buy: Premium'
+            ],
+            'caseSensitive': true
+          }
+        ]
+      }
+    ]
+  },
+];
+
 export {
   requestDataForiPhoneAppStory, 
   requestDataForAndroidAppStory, 
@@ -1558,5 +2113,9 @@ export {
   requestDataForAllUser,
   requestDataForiPhoneAppUser,
   requestDataForAndroidAppUser,
-  requestDataForWebUser
+  requestDataForWebUser,
+  requestDataForiphoneAppUserBehavior,
+  requestDataForAndroidAppUserBehavior,
+  requestDataForWebUserBehavior
+
 }

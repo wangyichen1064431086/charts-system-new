@@ -10,7 +10,10 @@ module.exports = {
     storyTableAndroid: ['./client/js/storyTableAndroid.js'],
     storyTableWeb: ['./client/js/storyTableWeb.js'],
     adMonitorGap: ['./client/js/adMonitorGap.js'],
-    adMonitorIndex: ['./client/js/adMonitorIndex.js']
+    adMonitorIndex: ['./client/js/adMonitorIndex.js'],
+    userPyramid: ['./client/js/userPyramid.js'],
+    userPyramidiPhone: ['./client/js/userPyramidiPhone.js']
+
   },
 
   output: {

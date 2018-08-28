@@ -36,7 +36,7 @@ function extractArrayForOneField(report, keys) {
   console.log(reportUsefulDataArr);
   const reportUsefulDataObj = tranformArrayToObj(reportUsefulDataArr, 'key');
   return keys.map(key => (
-    reportUsefulDataObj[key] ? reportUsefulDataObj[key]['value'] : '0'
+    reportUsefulDataObj[key] ? reportUsefulDataObj[key]['value'] : 0
   ));
 }
 /**
@@ -238,6 +238,20 @@ function revenue(standardNum, premiumNum) {
   return standardNum * 198 + premiumNum * 1998
 }
 
+/**
+ * @description 计算数字数组的平均值
+ * @returns {Number} 平均值数值
+ * @param {Array} arr 
+ */
+function averageOfArr(arr) {
+  const len = arr.length;
+  if(len) {
+    const sum = arr.reduce((value1, value2) => (value1+value2), 0);
+    return parseFloat((sum/len).toFixed(2));
+  }
+  return NaN;
+}
+
 
 export { 
   keysArr, 
@@ -247,8 +261,11 @@ export {
   merge2ObjBySumPropValue,
   mergeMultiObj, 
   addPropsToData, 
+
   divide, 
   revenue,
+  averageOfArr,
+
   getOneAdIdImpFromCy,
   getRateArrForTwoArr,
   topDataByOneField,

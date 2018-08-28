@@ -71,6 +71,7 @@ const router = new Router();
 
 const paidStoryRouter = new Router();
 const adMonitorRouter = new Router();
+const userPyramidRouter = new Router();
 
 //paidStoryRouter
 paidStoryRouter.get('/iphoneapp', async ctx => {
@@ -143,6 +144,26 @@ router.get('/chuanyang/cynew.csv',  ctx => {
   ctx.body = jetpack.read('./chuanyang/cynew.csv', 'utf8')
 });
 */
+
+//userPyramidRouter
+userPyramidRouter.get('/', async ctx => {
+  ctx.body = await render('userPyramid.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'userPyramid',
+    header: require('./data/userPyramid')
+  })
+});
+userPyramidRouter.get('/iphoneapp', async ctx => {
+  ctx.body = await render('userpyramid-iphoneapp.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'userPyramidiPhone',
+    header: require('./data/userPyramidiPhone')
+  })
+});
+router.use('/userpyramid', userPyramidRouter.routes());
+
 app.use(router.routes());
 
 app.listen(8080)

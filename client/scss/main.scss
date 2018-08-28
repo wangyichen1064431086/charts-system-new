@@ -118,10 +118,19 @@ div {
 img {
   max-width: 100%;
 }
+.item {
+  margin-bottom: 80px;
+  .chart {
+    margin-bottom:0px;
+  }
+}
 .chart {
   max-width: 800px;
   margin: 0 auto;
   margin-bottom: 50px;
+}
+.moreinfo {
+  margin-left: 50%;
 }
 .chart-title {
   font-size: 18px;
