@@ -60,9 +60,9 @@ function proccessDataFunc(responseDataArr) {
   });
 
   //MARK: 图2 androidApp display,tap checked,pop checked, buy seccess of standard, buy success of premium 条形图
-  const keys = keysArr(responseDataArr[2].reports[0]);
+  const keys = keysArr(responseDataArr[1].reports[0]);
 
-  const androidAppDisplayed = extractArrayForOneField(responseDataArr[2].reports[0], keys);
+  const androidAppDisplayed = extractArrayForOneField(responseDataArr[1].reports[0], keys);
   const androidAppTapChecked = extractArrayForOneField(responseDataArr[1].reports[1], keys);
   const androidAppBuySuccessOfStandard = extractArrayForOneField(responseDataArr[1].reports[2], keys);
   const androidAppBuySuccessOfPremium = extractArrayForOneField(responseDataArr[1].reports[3], keys);

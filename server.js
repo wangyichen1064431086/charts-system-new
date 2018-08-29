@@ -146,7 +146,7 @@ router.get('/chuanyang/cynew.csv',  ctx => {
 */
 
 //userPyramidRouter
-userPyramidRouter.get('/', async ctx => {
+userPyramidRouter.get('/main', async ctx => {
   ctx.body = await render('userPyramid.html', {
     nodeEnv: nodeEnv,
     neadCharts: true,
@@ -160,6 +160,22 @@ userPyramidRouter.get('/iphoneapp', async ctx => {
     neadCharts: true,
     jsFile:'userPyramidiPhone',
     header: require('./data/userPyramidiPhone')
+  })
+});
+userPyramidRouter.get('/androidapp', async ctx => {
+  ctx.body = await render('userpyramid-androidapp.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'userPyramidAndroid',
+    header: require('./data/userPyramidAndroid')
+  })
+});
+userPyramidRouter.get('/web', async ctx => {
+  ctx.body = await render('userpyramid-web.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'userPyramidWeb',
+    header: require('./data/userPyramidWeb')
   })
 });
 router.use('/userpyramid', userPyramidRouter.routes());

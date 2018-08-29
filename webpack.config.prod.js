@@ -255,7 +255,7 @@ module.exports = {
       //chunkFilename:'static/[name].css'
     }),
     new HtmlWebpackPlugin({
-      filename:'iphoneapp.html',
+      filename:'storytable/iphoneapp.html',
       template:'views/pages/storytable-iphoneapp.html',
       chunks:['storyTableiPhone'],
       // minify: { //这个是等同于html-minifier的配置，在html-loader中已经设置了，这里就可以不设置了
@@ -266,31 +266,31 @@ module.exports = {
     }),
     
     new HtmlWebpackPlugin({
-      filename:'androidapp.html',
+      filename:'paidstory/androidapp.html',
       template:'views/pages/storytable-androidapp.html',
       chunks:['storyTableAndroid']
     }),
 
     new HtmlWebpackPlugin({
-      filename:'web.html',
+      filename:'paidstory/web.html',
       template:'views/pages/storytable-web.html',
       chunks:['storyTableWeb']
     }),
 
     new HtmlWebpackPlugin({
-      filename:'all.html',
+      filename:'paidstory/all.html',
       template:'views/pages/storytable-all.html',
       chunks:['storyTableAll']
     }),
 
     new HtmlWebpackPlugin({
-      filename:'gap.html',
+      filename:'admonitor/gap.html',
       template:'views/pages/admonitor-gap.html',
       chunks:['adMonitorGap']
     }),
     
     new HtmlWebpackPlugin({
-      filename:'gapindex.html',
+      filename:'admonitor/gapindex.html',
       template:'views/pages/admonitor-index.html',
       chunks:['adMonitorIndex']
     })

@@ -131,6 +131,11 @@ img {
 }
 .moreinfo {
   margin-left: 50%;
+  a {
+    text-decoration: underline;
+    color:#4781aa;
+    cursor: pointer;
+  }
 }
 .chart-title {
   font-size: 18px;

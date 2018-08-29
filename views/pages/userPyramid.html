@@ -15,19 +15,19 @@
   <div class="item">
     <div class="chart" id="iphoneAppPyramid">
     </div>
-    <p class="moreinfo"><a>More info about user conversion on iphoneApp...</a></p>
+    <p class="moreinfo"><a href= {{ "/userpyramid/iphoneapp" if nodeEnv=="development" else "/userpyramid/iphoneapp.html" }}>More info about user conversion on iphoneApp...</a></p>
   </div>
 
   <div class="item">
     <div class="chart" id="androidAppPyramid">
     </div>
-    <p class="moreinfo"><a>More info about user conversion on androidApp...</a></p>
+    <p class="moreinfo"><a href= {{ "/userpyramid/androidapp" if nodeEnv=="development" else "/userpyramid/androidapp.html" }}>More info about user conversion on androidApp...</a></p>
   </div>
 
   <div class="item">
     <div class="chart" id="webPyramid">
     </div>
-    <p class="moreinfo"><a>More info about user conversion on web...</a></p>
+    <p class="moreinfo"><a href= {{ "/userpyramid/web" if nodeEnv=="development" else "/userpyramid/web.html" }}>More info about user conversion on web...</a></p>
   </div>
 
   

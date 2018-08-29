@@ -12,8 +12,9 @@ module.exports = {
     adMonitorGap: ['./client/js/adMonitorGap.js'],
     adMonitorIndex: ['./client/js/adMonitorIndex.js'],
     userPyramid: ['./client/js/userPyramid.js'],
-    userPyramidiPhone: ['./client/js/userPyramidiPhone.js']
-
+    userPyramidiPhone: ['./client/js/userPyramidiPhone.js'],
+    userPyramidAndroid: ['./client/js/userPyramidAndroid.js'],
+    userPyramidWeb: ['./client/js/userPyramidWeb.js']
   },
 
   output: {

@@ -4,7 +4,7 @@ const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
 module.exports = {
   "myTitle":"付费文章Engagement: AndroidApp",
 
-	"nav": {
+  "nav": {
     "indexForSelectedTopChannel": 0,
     "indexForSelectedSubChannel": 2,
     "topChannels": [
@@ -15,45 +15,68 @@ module.exports = {
         "subChannels":[
           {
             "name":"All",
-            "url": nodeEnv === 'development' ? '/all' : "https://backyard.ftchinese.com/chartist/charts-system-new/all.html",
+            "url": `${urlPath}paidstory/all${fileExt}`,
             "index":0
           },
           {
             "name":"iPhoneApp",
-            "url":nodeEnv === 'development' ? '/iphoneapp': "https://backyard.ftchinese.com/chartist/charts-system-new/iphoneapp.html",
+            "url":`${urlPath}paidstory/iphoneapp${fileExt}`,
             "index":1
           },
           {
             "name":"AndroidApp",
-            "url":"#",
+            "url":`${urlPath}paidstory/androidapp${fileExt}`,
             "index":2
           },
           {
             "name":"Web",
-            "url": nodeEnv === 'development' ? '/web': "https://backyard.ftchinese.com/chartist/charts-system-new/web.html",
+            "url":`${urlPath}paidstory/web${fileExt}`,
             "index":3
+          }
+        ]  
+      },
+      {
+        "name": "用户转化",
+        "url": `${urlPath}userpyramid/main${fileExt}`,
+        "index":1,
+        "subChannels":[
+          {
+            "name":"iphoneApp",
+            "url": `${urlPath}userpyramid/iphoneapp${fileExt}`,
+            "index":0
+          },
+          {
+            "name":"androidApp",
+            "url": `${urlPath}userpyramid/androidapp${fileExt}`,
+            "index":1
+          },
+          {
+            "name":"web",
+            "url": `${urlPath}userpyramid/web${fileExt}`,
+            "index":2
           }
         ]  
       },
       {
         "name": "广告监控",
         "url": "#",
-        "index":1,
+        "index":2,
         "subChannels":[
           {
             "name":"Gap",
-            "url": `${urlPath}gap${fileExt}`,
+            "url": `${urlPath}admonitor/gap${fileExt}`,
             "index":0
           },
           {
             "name":"GapIndex",
-            "url": `${urlPath}gapindex${fileExt}`,
+            "url": `${urlPath}admonitor/gapindex${fileExt}`,
             "index":1
           }
         ]  
-      }
+      },
     ]
   },
+
   "search": {
 		"actionUrl":"/search/",
 		"placeholderText":"输入年月日‘xxxx-xx-xx’可搜索该日存档"

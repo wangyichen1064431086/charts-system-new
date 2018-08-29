@@ -2,11 +2,11 @@ const urlPath = process.env.NODE_ENV === 'development' ? '/' : 'https://backyard
 const fileExt =  process.env.NODE_ENV === 'development' ? '' : '.html';
 
 module.exports = {
-  "myTitle":"广告监控：单个广告Gap",
+  "myTitle":"用户转化：AndroidApp端",
 
   
 	"nav": {
-    "indexForSelectedTopChannel": 2,
+    "indexForSelectedTopChannel": 1,
     "indexForSelectedSubChannel": 1,
     "topChannels": [
       {
@@ -16,65 +16,65 @@ module.exports = {
         "subChannels":[
           {
             "name":"All",
-            "url": `${urlPath}all${fileExt}`,
+            "url": `${urlPath}paidstory/all${fileExt}`,
             "index":0
           },
           {
             "name":"iPhoneApp",
-            "url":`${urlPath}iphoneapp${fileExt}`,
+            "url":`${urlPath}paidstory/iphoneapp${fileExt}`,
             "index":1
           },
           {
             "name":"AndroidApp",
-            "url":`${urlPath}androidapp${fileExt}`,
+            "url":`${urlPath}paidstory/androidapp${fileExt}`,
             "index":2
           },
           {
             "name":"Web",
-            "url":`${urlPath}web${fileExt}`,
+            "url":`${urlPath}paidstory/web${fileExt}`,
             "index":3
+          }
+        ]  
+      },
+      {
+        "name": "用户转化",
+        "url": `${urlPath}userpyramid/main${fileExt}`,
+        "index":1,
+        "subChannels":[
+          {
+            "name":"iphoneApp",
+            "url": `${urlPath}userpyramid/iphoneapp${fileExt}`,
+            "index":0
+          },
+          {
+            "name":"androidApp",
+            "url": `${urlPath}userpyramid/androidapp${fileExt}`,
+            "index":1
+          },
+          {
+            "name":"web",
+            "url": `${urlPath}userpyramid/web${fileExt}`,
+            "index":2
           }
         ]  
       },
       {
         "name": "广告监控",
         "url": "#",
-        "index":1,
+        "index":2,
         "subChannels":[
           {
             "name":"Gap",
-            "url":`${urlPath}gap${fileExt}`,
+            "url": `${urlPath}admonitor/gap${fileExt}`,
             "index":0
           },
           {
             "name":"GapIndex",
-            "url": `${urlPath}gapindex${fileExt}`,
+            "url": `${urlPath}admonitor/gapindex${fileExt}`,
             "index":1
           }
         ]  
       },
-      {
-        "name": "用户转化",
-        "url": `${urlPath}userpyramid${fileExt}`,
-        "index":2,
-        "subChannels":[
-          {
-            "name":"iphoneApp",
-            "url": `${urlPath}userpyramid-iphone${fileExt}`,
-            "index":0
-          },
-          {
-            "name":"androidApp",
-            "url": `${urlPath}userpyramid-android${fileExt}`,
-            "index":1
-          },
-          {
-            "name":"web",
-            "url": `${urlPath}userpyramid-web${fileExt}`,
-            "index":2
-          }
-        ]  
-      }
     ]
   },
   "search": {
