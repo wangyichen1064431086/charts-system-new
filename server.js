@@ -11,11 +11,6 @@ const webpackMiddleware = require('koa-webpack');
 const nunjucks = require('nunjucks');
 const jetpack = require('fs-jetpack');
 
-const headerAllData = require('./data/storyTableAll');
-const headerIphoneData = require('./data/storyTableiPhone');
-const headerAndroidData = require('./data/storyTableAndroid');
-const headerWebData = require('./data/storyTableWeb');
-
 const app = new Koa();
 const nodeEnv = process.env.NODE_ENV || '';
 console.log(`nodeEnv: ${nodeEnv}`);
@@ -74,11 +69,19 @@ const adMonitorRouter = new Router();
 const userPyramidRouter = new Router();
 
 //paidStoryRouter
+paidStoryRouter.get('/main', async ctx => {
+  const htmlResult = await render('storytable.html', {
+    nodeEnv:nodeEnv,
+    jsFile:'storyTable',
+    header:require('./data/storyTable')
+  });
+  ctx.body = htmlResult;
+});
 paidStoryRouter.get('/iphoneapp', async ctx => {
   const htmlResult = await render('storytable-iphoneapp.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableiPhone',
-    header:headerIphoneData
+    header:require('./data/storyTableiPhone')
   });
   ctx.body = htmlResult;
 });
@@ -87,7 +90,7 @@ paidStoryRouter.get('/androidapp', async ctx => {
   const htmlResult = await render('storytable-androidapp.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableAndroid',
-    header:headerAndroidData
+    header:require('./data/storyTableAndroid')
   });
   ctx.body = htmlResult;
 });
@@ -96,43 +99,43 @@ paidStoryRouter.get('/web', async ctx => {
   const htmlResult = await render('storytable-web.html', {
     nodeEnv:nodeEnv,
     jsFile:'storyTableWeb',
-    header:headerWebData
-  });
-  ctx.body = htmlResult;
-});
-
-paidStoryRouter.get('/all', async ctx => {
-  const htmlResult = await render('storytable-all.html', {
-    nodeEnv:nodeEnv,
-    jsFile:'storyTableAll',
-    header:headerAllData
+    header:require('./data/storyTableWeb')
   });
   ctx.body = htmlResult;
 });
 
 router.use('/paidstory', paidStoryRouter.routes());
-router.get('/', ctx => {
-  ctx.redirect('/paidstory/iphoneapp');
-});
+
 
 // adMonitorRouter
-adMonitorRouter.get('/gap', async ctx => {
-  ctx.body = await render('admonitor-gap.html', {
+adMonitorRouter.get('/main', async ctx => {
+  ctx.body = await render('admonitor.html', {
     nodeEnv: nodeEnv,
     neadCharts: true,
-    jsFile:'adMonitorGap',
-    header: require('./data/adMonitorGap')
+    jsFile:'adMonitor',
+    header: require('./data/adMonitor')
+  })
+});
+adMonitorRouter.get('/one', async ctx => {
+  let headerDataName;
+  if (ctx.query.adid==='606955') {
+    headerDataName = 'adMonitorOne0';
+  } else if (ctx.query.adid === '606835') {
+    headerDataName = 'adMonitorOne1';
+  } else if (ctx.query.adid === '606986') {
+    headerDataName = 'adMonitorOne2';
+  } else {
+    headerDataName = 'adMonitorOne';
+  }
+  ctx.body = await render('admonitor-one.html', {
+    nodeEnv: nodeEnv,
+    neadCharts: true,
+    jsFile:'adMonitorOne',
+    header: require(`./data/${headerDataName}`)
   })
 });
 
-adMonitorRouter.get('/gapindex', async ctx => {
-  ctx.body = await render('admonitor-index.html', {
-    nodeEnv: nodeEnv,
-    neadCharts: true,
-    jsFile:'adMonitorIndex',
-    header: require('./data/adMonitorIndex')
-  })
-});
+
 
 router.use('/admonitor', adMonitorRouter.routes());
 /*
@@ -179,6 +182,11 @@ userPyramidRouter.get('/web', async ctx => {
   })
 });
 router.use('/userpyramid', userPyramidRouter.routes());
+
+
+router.get('/', ctx => {
+  ctx.redirect('/userpyramid/main');
+});
 
 app.use(router.routes());
 

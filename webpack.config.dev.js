@@ -5,12 +5,12 @@ const sassLoader = 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMap
 module.exports = {
   mode: 'development',
   entry: {
-    storyTableAll: ['./client/js/storyTableAll.js'],
+    storyTable: ['./client/js/storyTable.js'],
     storyTableiPhone: ['./client/js/storyTableiPhone.js'],
     storyTableAndroid: ['./client/js/storyTableAndroid.js'],
     storyTableWeb: ['./client/js/storyTableWeb.js'],
-    adMonitorGap: ['./client/js/adMonitorGap.js'],
-    adMonitorIndex: ['./client/js/adMonitorIndex.js'],
+    adMonitor: ['./client/js/adMonitor.js'],
+    adMonitorOne: ['./client/js/adMonitorOne.js'],
     userPyramid: ['./client/js/userPyramid.js'],
     userPyramidiPhone: ['./client/js/userPyramidiPhone.js'],
     userPyramidAndroid: ['./client/js/userPyramidAndroid.js'],

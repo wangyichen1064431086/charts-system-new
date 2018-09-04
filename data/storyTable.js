@@ -1,14 +1,15 @@
 module.exports = {
-  "myTitle":"用户转化：Web端",
+  "myTitle":"付费文章Engagement: All",
 
+  
 	"nav": {
-    "indexForSelectedTopChannel": 0,
-    "indexForSelectedSubChannel": 2,
+    "indexForSelectedTopChannel": 1,
+    "indexForSelectedSubChannel": -1,
     "topChannels": require('./channels')
   },
-
   "search": {
 		"actionUrl":"/search/",
 		"placeholderText":"输入年月日‘xxxx-xx-xx’可搜索该日存档"
 	}
 }
+

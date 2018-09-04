@@ -1,9 +1,11 @@
-module.exports = {
-  "myTitle":"用户转化：Web端",
 
-	"nav": {
-    "indexForSelectedTopChannel": 0,
-    "indexForSelectedSubChannel": 2,
+
+module.exports = {
+  "myTitle":"广告监控：Request Top 30",
+  
+  "nav": {
+    "indexForSelectedTopChannel": 2,
+    "indexForSelectedSubChannel": -1,
     "topChannels": require('./channels')
   },
 
