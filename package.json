@@ -11,7 +11,7 @@
     "start": "cross-env NODE_ENV=development nodemon server.js",
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "build:publish": "cpx  \"dist/**/*\" \"../dev_cms/chartist/charts\" ",
+    "build:publish": "cpx  \"dist/**/*\" \"../dev_cms/chartist/charts\" && \"static\" \"../dev_cms/chartist/charts\" ",
     "build": "npm run clean && npm run build:webpack && npm run build:publish"
   },
   "repository": {
