@@ -8,13 +8,21 @@ import { keysArr,getOneValue } from './libs/handleGaData.js'
 import {FullHeader} from '@ftchinese/ftc-header';
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
 
+import simulateData from './simulateResponse/userPyramid';
 FullHeader.init();
 
 setGlobOptionsForHighcharts();
 
 const requestDataArr = [requestDataForAllUser, requestDataForiPhoneAppUser,requestDataForAndroidAppUser,requestDataForWebUser];
 
+let runSimulate = false;
+
 function proccessDataFunc(responseDataArr) {
+  if(runSimulate) { //如果已经执行过模拟数据就不再执行真实数据,也不再执行模拟数据了
+      return;
+  }
+  console.log('responseDataArr:');
+  console.log(JSON.stringify(responseDataArr));
   const allUsers= Number(getOneValue(responseDataArr[0].reports[0]));
   console.log('allUsers:', allUsers);
   // MARK:金字塔图:for iphoneApp
@@ -189,9 +197,19 @@ function proccessDataFunc(responseDataArr) {
 
   
 }
-
-function clickFunc() {
-  queryDifferentReports(requestDataArr, proccessDataFunc);
+function runSimlateFunc() {
+    console.log('simulate run');
+    proccessDataFunc(simulateData);
+    runSimulate = true;
 }
 
+function clickFunc() {
+  queryDifferentReports(requestDataArr, proccessDataFunc, runSimlateFunc);
+}
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
+
 window.clickFunc = clickFunc;
+

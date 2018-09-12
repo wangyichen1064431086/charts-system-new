@@ -4,12 +4,12 @@
    * @param {Array} requestDataArr 用于存储数个ReportRequest对象,来自具体展示页面设置的全局常量。
    * @param {Function} processDataFunc 用于根据responseDataArr进行可视化展示
    */
-function queryDifferentReports(requestDataArr, processDataFunc) {
+function queryDifferentReports(requestDataArr, processDataFunc, backupFunc) {
  
   const  requestNum = requestDataArr.length;
   let requestIndex = 0;
   const responseDataArr = [];
-
+  let runReal = false;
   const oneRequest = function() {
     const requestData = requestDataArr[requestIndex];
     gapi.client.request({
@@ -27,6 +27,7 @@ function queryDifferentReports(requestDataArr, processDataFunc) {
         oneRequest();
       } else {
         processDataFunc(responseDataArr);
+        runReal = true;
       }
       
 
@@ -34,6 +35,12 @@ function queryDifferentReports(requestDataArr, processDataFunc) {
   }
 
   oneRequest();
+
+  setTimeout(() => {
+    if(!runReal && backupFunc) {
+      backupFunc();
+    }
+  }, 60000);
 }
 
 export {queryDifferentReports};

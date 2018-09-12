@@ -7,6 +7,7 @@ import { keysArr, getOneValue, extractArrayForOneField, averageOfArr} from './li
 
 import {FullHeader} from '@ftchinese/ftc-header';
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
+import simulateData from './simulateResponse/userPyramidiPhone';
 
 FullHeader.init();
 
@@ -14,8 +15,14 @@ setGlobOptionsForHighcharts();
 
 const requestDataArr = [requestDataForiPhoneAppUser, requestDataForiphoneAppUserBehavior];
 
-function proccessDataFunc(responseDataArr) {
+let runSimulate = false;
 
+function proccessDataFunc(responseDataArr) {
+    if(runSimulate) { //如果已经执行过模拟数据就不再执行真实数据,也不再执行模拟数据了
+        return;
+    }
+    console.log('responseDataArr:');
+  console.log(JSON.stringify(responseDataArr));
   // MARK:图1 金字塔for iphoneApp
   const iPhoneAppAllUsers = Number(getOneValue(responseDataArr[0].reports[0]));//iPhoneApp用户数
   console.log('iPhoneAppAllUsers', iPhoneAppAllUsers);
@@ -126,8 +133,18 @@ function proccessDataFunc(responseDataArr) {
 
 }
 
-function clickFunc() {
-  queryDifferentReports(requestDataArr, proccessDataFunc);
+function runSimlateFunc() {
+    console.log('simulate run');
+    proccessDataFunc(simulateData);
+    runSimulate = true;
 }
+
+function clickFunc() {
+  queryDifferentReports(requestDataArr, proccessDataFunc, runSimlateFunc);
+}
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
 
 window.clickFunc = clickFunc;

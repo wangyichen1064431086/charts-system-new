@@ -8,13 +8,22 @@ import { keysArr, getOneValue, extractArrayForOneField, averageOfArr} from './li
 import {FullHeader} from '@ftchinese/ftc-header';
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
 
+import simulateData from './simulateResponse/userPyramidWeb';
+
 FullHeader.init();
 
 setGlobOptionsForHighcharts();
 
 const requestDataArr = [requestDataForAllUser, requestDataForiPhoneAppUser,requestDataForAndroidAppUser, requestDataForWebUser, requestDataForWebUserBehavior];
 
+let runSimulate = false;
+
 function proccessDataFunc(responseDataArr) {
+    if(runSimulate) {
+        return;
+    }
+    console.log('responseDataArr:');
+    console.log(JSON.stringify(responseDataArr));
 
   //MARK:图1 金字塔图 for AndroidApp
   const allUsers= Number(getOneValue(responseDataArr[0].reports[0]));//三端总用户数
@@ -123,8 +132,18 @@ function proccessDataFunc(responseDataArr) {
 
 }
 
-function clickFunc() {
-  queryDifferentReports(requestDataArr, proccessDataFunc);
+function runSimlateFunc() {
+    console.log('simulate run');
+    proccessDataFunc(simulateData);
+    runSimulate = true;
 }
+
+function clickFunc() {
+  queryDifferentReports(requestDataArr, proccessDataFunc, runSimlateFunc);
+}
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
 
 window.clickFunc = clickFunc;

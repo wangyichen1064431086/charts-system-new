@@ -14,10 +14,20 @@ import Table from '@ftchinese/ftc-table';
  */
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
+import simulateData from './simulateResponse/adMonitor';
+
 FullHeader.init();
 const requestDataArr = [requestDataForAds];
 
-function processDataFunc(responseDataArr) {
+let runSimulate = false;
+
+function proccessDataFunc(responseDataArr) {
+  if(runSimulate) { //如果已经执行过模拟数据就不再执行真实数据,也不再执行模拟数据了
+    return;
+  }
+  console.log('responseDataArr:');
+  console.log(JSON.stringify(responseDataArr));
+
   const responseData = responseDataArr[0];
   const labelKeys = keysArr(responseData.reports[0]);
 
@@ -68,8 +78,18 @@ function processDataFunc(responseDataArr) {
   new Table('#adMonitorIndex');
 }
 
-function clickFunc() {
-  queryDifferentReports(requestDataArr, processDataFunc);
+function runSimlateFunc() {
+  console.log('simulate run');
+  proccessDataFunc(simulateData);
+  runSimulate = true;
 }
+
+function clickFunc() {
+queryDifferentReports(requestDataArr, proccessDataFunc, runSimlateFunc);
+}
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
 
 window.clickFunc = clickFunc;

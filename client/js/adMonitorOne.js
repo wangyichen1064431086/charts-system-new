@@ -9,7 +9,8 @@ import {FullHeader} from '@ftchinese/ftc-header';
 
 import setGlobOptionsForHighcharts from './chartsConfig/highcharts';
 
-import Papa from 'papaparse';
+//import Papa from 'papaparse';
+import simulateData from './simulateResponse/adMonitorOne';
 
 FullHeader.init();
 
@@ -25,11 +26,15 @@ function getAdId() {
   //test success:606666,606658
 }
 
+let runSimulate = false;
+function proccessDataFunc(responseDataArr) {
+  if(runSimulate) { 
+    return;
+  }
+  console.log('responseDataArr:');
+  console.log(JSON.stringify(responseDataArr));
 
-function processDataFunc(responseDataArr) {
   const responseData = responseDataArr[0];
-  console.log('responseData:');
-  console.log(responseData);
   const datesArr = keysArr(responseData.reports[0]);
   if(datesArr.length === 0) {
     inputErrorElem.innerHTML = 'This adid has no data in ga';
@@ -99,7 +104,7 @@ function processDataFunc(responseDataArr) {
       data: successCountArr
     }]
   });
-  
+  /*
   const cbFuncForFetch = function(csvStr) {
     const papaResult = Papa.parse(csvStr, {
       header:true
@@ -162,9 +167,10 @@ function processDataFunc(responseDataArr) {
     });
     
   }
+  */
 
   //fetchOneFileAsync('./chuanyang/cy.json', cbFuncForFetch); //json转csv的工具<https://www.npmjs.com/package/papaparse>
-  fetchFileAsync('./chuanyang/cynew.csv','text', cbFuncForFetch)
+  //fetchFileAsync('./chuanyang/cynew.csv','text', cbFuncForFetch)
 }
 
 function clickFunc() {
@@ -174,7 +180,7 @@ function clickFunc() {
   console.log(resultOfRequestDataForOneAd);
   const requestDataArr = [resultOfRequestDataForOneAd];
 
-  queryDifferentReports(requestDataArr, processDataFunc);
+  queryDifferentReports(requestDataArr, proccessDataFunc);
 }
 
 inputElem.addEventListener('keyup', (e) => {
@@ -195,5 +201,15 @@ inputElem.addEventListener('keyup', (e) => {
     }
   }
 })
+
+function runSimlateFunc() {
+  console.log('simulate run');
+  proccessDataFunc(simulateData);
+  runSimulate = true;
+}
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
 
 window.clickFunc = clickFunc;

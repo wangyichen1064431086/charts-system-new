@@ -21,7 +21,12 @@
     {% include "header.html" %}
     <!-- The Sign-in button. This will run `queryReports()` on success. -->
     <div class="signin-btn">
-     <div class="g-signin2" data-onsuccess="clickFunc"></div>
+     
+     <div class="g-signin2" data-onsuccess="clickFunc">
+     </div>
+     <div class="simulate-signin" id="simulateSignin">
+        Simulate 
+      </div>
     </div>
 
     {% block content %}
