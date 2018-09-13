@@ -44,7 +44,25 @@ function fetchMoreInfoOfStorysAsync(storyIdArr,cbFunc) {
     })
   ).then().catch();
 }
-export {fetchOneFileAsync, fetchFileAsync, fetchOneStoryAsync,fetchMoreInfoOfStorysAsync};
+
+function fetchMoreInfoOfStorysNew(storyIdArr, cbFunc) {
+  const count = storyIdArr.length;
+  console.log(`count:${count}`);
+  while(storyIdArr.length > 0) {
+    const storyIdArr50 = storyIdArr.splice(0, 50);
+    const requestUrl = 'http://10.99.10.11/index.php/jsapi/storyid2title/' + encodeURIComponent(storyIdArr50.join(','));
+    console.log(requestUrl);
+    fetch(requestUrl, {
+      mode: 'cors'
+    }).then(res => 
+      res.json()
+    ).then(result => {
+      window.requestAnimationFrame(cbFunc.bind(this, result))
+    });
+  }
+
+}
+export {fetchOneFileAsync, fetchFileAsync, fetchOneStoryAsync,fetchMoreInfoOfStorysAsync, fetchMoreInfoOfStorysNew};
 
 //调用方式:const testFetch = await fetchMoreInfoOfOneStory('001077916');
 /** test

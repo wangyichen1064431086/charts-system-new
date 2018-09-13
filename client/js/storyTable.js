@@ -5,17 +5,24 @@ import {queryDifferentReports} from './libs/queryFuncs.js';
 import {requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory} from './libs/requestData.js';
 import {renderDataToTable} from './libs/renderData.js';
 import { keysArr, extractObjData, tranformArrayToObj,merge2ObjBySumPropValue, mergeMultiObj, addPropsToData, divide, revenue } from './libs/handleGaData.js'
-import {fetchMoreInfoOfStorysAsync} from './libs/fetch.js';
+import {fetchMoreInfoOfStorysNew} from './libs/fetch.js';
 import {formatDate} from './libs/handleDate';
 import Table from '@ftchinese/ftc-table';
 import {FullHeader} from '@ftchinese/ftc-header/main.js';
 
+import simulateData from './simulateResponse/storyTable';
 
 FullHeader.init();
 
 const requestDataArr = [requestDataForiPhoneAppStory, requestDataForAndroidAppStory, requestDataForWebStory];
 
-function processDataFunc(responseDataArr) {
+let runSimulate = false;
+
+function proccessDataFunc(responseDataArr) {
+  if(runSimulate) {
+    return;
+  }
+
   const transformedObjDataArr = responseDataArr.map(responseData => {
     const labelKeys = keysArr(responseData.reports[0]);
     const arrData = extractObjData(responseData.reports, ["story","disp","tap","buySucS","buySucP"], labelKeys);
@@ -64,6 +71,7 @@ function processDataFunc(responseDataArr) {
 
   const storyIdArr = newObjData.map(item => item.id);
   const tableElem = document.getElementById('storyOfAll');
+  /*
   const cbFunc = function(moreInfoData) {
     const id = moreInfoData.id||'';
     const title = moreInfoData.cheadline || '标题缺失';
@@ -77,12 +85,40 @@ function processDataFunc(responseDataArr) {
       targetPubdateTd.innerHTML = pubdate;
     }
   }
+  */
+  const cbFuncNew = function(resultArr) {
+    for(let item of resultArr) {
+      const id = item.storyid||'';
+      const title = item.cheadline || '标题缺失';
+      const pubdate = item.pubdate ? formatDate((parseInt(item.pubdate,10) + 28800) * 1000) : '' //js比php时间晚8个小时
 
-  fetchMoreInfoOfStorysAsync(storyIdArr, cbFunc);
+      if (id) {
+        
+        const targetTr = tableElem.querySelector(`[data-storyid="${id}"]`);
+        const targetTitleTd = targetTr.querySelector('td:nth-child(2)');
+        const targetPubdateTd = targetTr.querySelector('td:nth-child(3)');
+        targetTitleTd.innerHTML = title;
+        targetPubdateTd.innerHTML = pubdate;
+      }
+    }
+  }
+  //fetchMoreInfoOfStorysAsync(storyIdArr, cbFunc);
+  fetchMoreInfoOfStorysNew(storyIdArr, cbFuncNew);
+}
+
+
+function runSimlateFunc() {
+  console.log('simulate run');
+  proccessDataFunc(simulateData);
+  runSimulate = true;
 }
 
 function clickFunc() {
-  queryDifferentReports(requestDataArr, processDataFunc);
+queryDifferentReports(requestDataArr, proccessDataFunc, runSimlateFunc);
 }
+
+
+const simulateButton = document.getElementById('simulateSignin');
+simulateButton.addEventListener('click', runSimlateFunc, false);
 
 window.clickFunc = clickFunc;
