@@ -51,7 +51,7 @@ function fetchMoreInfoOfStorysNew(storyIdArr, cbFunc) {
   while(storyIdArr.length > 0) {
     const storyIdArr50 = storyIdArr.splice(0, 50);
     //TODO: http，线上地址是https，故会产生Mixed Content错误。
-    const requestUrl = 'http://10.99.10.11/index.php/jsapi/storyid2title/' + encodeURIComponent(storyIdArr50.join(','));
+    const requestUrl = 'https://www.ftchinese.com/index.php/jsapi/storyid2title/' + encodeURIComponent(storyIdArr50.join(','));
     console.log(requestUrl);
     fetch(requestUrl, {
       mode: 'cors'
